@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>博客内容</title>
+    <link rel="stylesheet" href="../static/css/f.css">
+    <link rel="stylesheet" href="../static/css/icon.css">
+    <link rel="stylesheet" href="../static/js/layui/css/layui.css">
+</head>
+
+<body style="background-color:rgb(68, 68, 68)">
+    <div id="tn-background">
+        <div id="top-nav">
+            <ul id="ulc">
+                {{if .IsLogin}}
+                <li class="top">
+                    <img src="{{.Img}}" data-position="center center"
+                         style="border-radius:50%;max-width:25px;max-height:25px;float: left" alt="">
+                    <a href="/selfhome" style="padding: 0 0 0 10px; ">{{.Username}}的主页</a>
+                </li>
+                <li id="line" class="top"></li>
+                <li class="top">
+                    <a title="点击退出登录" href='javascript:if (confirm("确定退出登录么？")){location="/exit"}'>退出登录</a>
+                </li>
+                {{else}}
+                <li class="top">
+                    <a class="sign" href="javascript:">注册</a>
+                </li>
+                <li id="line" class="top"></li>
+                <li class="top">
+                    <a class="login" href="javascript:">登录</a>
+                </li>
+                {{end}}
+
+            </ul>
+        </div>
+    </div>
+    <iframe width="280" scrolling="no" height="300" frameborder="0" allowtransparency="true"
+            src="https://i.tianqi.com?c=code&id=55&color=%23FFFFFF&bgc=%23000000&icon=1&site=12" style="float: right"></iframe>
+    <div id="head" style="width: 900px;height: 640px;">
+            <div style="font-size: 60px; color:#fff; padding: 0 20px 0 0; ">{{.Title}}</div>
+        {{if .IsLogin}}
+            <form method="post" id="blog-collect-form">
+                <input id="collect-article-id" hidden name="collect_id" value="{{.Id}}">
+                <button type="submit" id="write-submit" style="font-size: 15px; float: right">收藏</button>
+            </form>
+            <p style="color:#fff;;font-size: 15px; float: right">　||　</p>
+            <form method="post" id="blog-like-form">
+                <input id="like-article-id" hidden name="blog_id" value="{{.Id}}">
+                <button type="submit" id="like-submit" style="font-size: 15px; float: right">点赞</button>
+            </form>
+        {{end}}
+            <br><br>
+            <div style="font-size: 15px; color:#fff; float: left; padding: 0 20px 0 0; ">{{.Author}} || {{.Tag}}</div>
+            <div style="font-size: 15px; color:#fff; float: right; padding: 0 20px 0 0; ">点赞：{{.Like}}次 || 浏览量：{{.Read}}次</div>
+            <br><br>
+            <div class="content" style="text-align:center;border-width:1px;border-style:solid;border-color:rgb(2, 204, 245);background-color:#79918e6b;border-radius:20px;">
+                <div style="color:#fff; font-size: 15px;" >{{.Content}}</div>
+            </div>
+            <br><br><br>
+    </div>
+    <div id="footer">
+        <div style="width: 1100px;background-color: rgb(68, 68, 68);float: left;padding: 0 50px 0 50px;">
+            <button type="button" onclick="history.back()" style="font-size: 20px;">返回</button>
+            <li class=" top "><p class="copyright" style="font-size:3vh;color:#fff;float: right">© 2021 — 2022</p></li>
+        </div>
+    </div>
+</body>
+<script src="../static/js/jQuery.min.js "></script>
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="200" src="../static/selfhome/files/back.js"></script>
+<script>
+    $(".ic").click(function() {
+        var content = $(this).children().children().children().last().html();
+        console.log(content);
+        localStorage.setItem("searchWord", content);
+        console.log(localStorage.getItem("searchWord"));
+        if (content !== "") {
+            window.location.href = '/search?key=' + content + '&page=1';
+        }
+    })
+</script>
+<script>
+    $("#for_search").submit(function(e) {
+        e.preventDefault();
+        var content = $("#ne")[0].value;
+        localStorage.setItem("searchWord", content);
+        console.log(localStorage.getItem("searchWord"));
+        if (content !== "") {
+            window.location.href = '/search?key=' + content + '&page=1';
+        }
+    })
+</script>
+<script src="../static/js/lib/jquery-3.3.1.min.js"></script>
+<script src="../static/js/lib/jquery.url.js"></script>
+<script src="../static/js/blogs.js "></script>
+<script src="../static/js/layer-v3.1.1/layer/layer.js "></script>
+<script src="../static/js/jquery.form.js "></script>
+<script src="../static/js/layui/layui.js "></script>
+<script src="../static/js/f.js "></script>
+
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../static/css/icon.css">
+    <link href="../static/css/collectsheet.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/f.css">
+    <link rel="stylesheet" href="../static/js/layui/css/layui.css">
+    <title>全部博客</title>
+</head>
+
+<body style="background-color:rgb(68, 68, 68)">
+    <div id="tn-background">
+        <div id="pin-nav" class="">
+            <ul id="ulc">
+                {{if .IsLogin}}
+                <li class="top">
+                    <a href="/selfhome">我的主页</a>
+                </li>
+                <li id="line" class="top"></li>
+                <li class="top">
+                    <a title="点击退出登录" href='javascript:if (confirm("确定退出登录么？")){location="/exit"}'>{{.Username}}</a>
+                </li>
+                <li id="userId" style="display:none">{{.Userid}}</li>
+
+                {{else}}
+                <li class="top">
+                    <a class="sign" href="javascript:">注册</a>
+                </li>
+                <li id="line" class="top"></li>
+                <li class="top">
+                    <a class="login" href="javascript:">登录</a>
+                </li>
+                {{end}}
+                <li>
+                    <p class="left home">首页</p>
+                </li>
+
+                <li class="ms1">
+                    <form id="for_search" action="/search" method="GET" target="_blank">
+                        <input id="ne" class="in" style="width: 500px;padding: 0 20px;" type="text" name="keyWords" placeholder="请输入搜索关键字">
+                        <input style="visibility: hidden;width: 0;" id="in" type="submit">
+                    </form>
+                </li>
+                <li class="ms0"><em class="iconfont ii" style="font-size: 40px;line-height: 40px;">&#xe61c;</em></li>
+            </ul>
+        </div>
+    </div>
+    <p id="out" style="font-size: 40px;padding: 20px;color: #ffffff">All Blog</p>
+            <div id="main" style="float: left; height: 620px;margin: 0 0 50px 0;width: 1500px;">
+                <iframe width="280" scrolling="no" height="300" frameborder="0" allowtransparency="true"
+                        src="https://i.tianqi.com?c=code&id=55&color=%23FFFFFF&bgc=%23000000&icon=1&site=12" style="float: right"></iframe>
+                <div class="content" style="text-align:center;border-width:1px;border-style:solid;border-color:rgb(2, 204, 245);
+                background-color:#79918e6b;border-radius:20px; position: absolute; top: 20%">
+                    <li style="font-size: 20px; color:#fff;">******************************************************************************************************************************************************</li>
+                    <br>
+                    {{.Content}}
+                    <li style="font-size: 20px; color:#fff;">******************************************************************************************************************************************************</li>
+                </div>
+            </div>
+    <div id="footer">
+        <div style="width: 1100px;background-color: rgb(68, 68, 68);float: left;padding: 0 50px 0 50px;">
+            {{if .HasFooter}}
+                <a {{if .PageCode.HasPre}}href="{{.PageCode.PreLink}}" {{else}} class="disable" {{end}} style="font-size:20px;color: #ffffff;position:absolute;left: 40%">上一页</a>
+                <span style="font-size:20px;color: #ffffff;position:absolute;left: 47%">{{.PageCode.ShowPage}}页</span>
+                <a {{if .PageCode.HasNext}}href="{{.PageCode.NextLink}}" {{else}} class="disable" {{end}} style="font-size:20px;color: #ffffff;position:absolute;left: 53%">下一页</a>
+            {{end}}
+            <li class=" top "><p class="copyright" style="font-size:3vh;color:#fff;float: right">© 2021 — 2022</p></li>
+        </div>
+    </div>
+</body>
+<script src="../static/js/jQuery.min.js"></script>
+
+<script>
+    
+    $(".button_search").click(function(){
+        $("#searchPut")[0].value = $(this).html();
+        $("#in").trigger('click');
+    })
+    $(".home").click(function(){
+        window.location.href = '/';
+    })
+</script>
+<script src="../static/js/layer-v3.1.1/layer/layer.js"></script>
+<script src="../static/js/jquery.form.js"></script>
+<script src="../static/js/layui/layui.js"></script>
+<script src="../static/js/f.js"></script>
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="200" src="../static/selfhome/files/back.js"></script>
+<script>
+    $(".ic").click(function() {
+        var content = $(this).children().children().children().last().html();
+        console.log(content);
+        localStorage.setItem("searchWord", content);
+        console.log(localStorage.getItem("searchWord"));
+        if (content !== "") {
+            window.location.href = '/search?key=' + content + '&page=1';
+        }else {
+            window.location.href = '/all?&page=1';
+        }
+    })
+</script>
+<script>
+    $("#for_search").submit(function(e) {
+        e.preventDefault();
+        var content = $("#ne")[0].value;
+        localStorage.setItem("searchWord", content);
+        console.log(localStorage.getItem("searchWord"));
+        if (content !== "") {
+            window.location.href = '/search?key=' + content + '&page=1';
+        }else {
+            window.location.href = '/all?&page=1';
+        }
+    })
+</script>
+</html>

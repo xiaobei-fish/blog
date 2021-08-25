@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>提示</title>
+    <link rel="stylesheet" href="../static/css/f.css">
+    <link rel="stylesheet" href="../static/css/icon.css">
+    <link rel="stylesheet" href="../static/js/layui/css/layui.css">
+</head>
+
+<body style="background-color:rgb(68, 68, 68)">
+<div id="tn-background">
+    <div id="top-nav">
+        <ul id="ulc">
+            {{if .IsLogin}}
+                <li class="top">
+                    <a href="/selfhome">{{.Username}}的主页</a>
+                </li>
+                <li id="line" class="top"></li>
+                <li class="top">
+                    <a title="点击退出登录" href='javascript:if (confirm("确定退出登录么？")){location="/exit"}'>{{.Username}}退出登录</a>
+                </li>
+            {{else}}
+                <li class="top">
+                    <a class="sign" href="javascript:">注册</a>
+                </li>
+                <li id="line" class="top"></li>
+                <li class="top">
+                    <a class="login" href="javascript:">登录</a>
+                </li>
+            {{end}}
+
+        </ul>
+    </div>
+</div>
+<iframe width="280" scrolling="no" height="300" frameborder="0" allowtransparency="true"
+        src="https://i.tianqi.com?c=code&id=55&color=%23FFFFFF&bgc=%23000000&icon=1&site=12" style="float: right"></iframe>
+<div id="head" style="width: 1100px;height: 640px;">
+    <img src="../static/img/0.jpg" alt="Go一下" data-position="center center"
+         style="border-radius:50%;max-width:200px;max-height:200px;position: absolute;left: 42%;top: 10%">
+    <li class="ms">
+        {{if .Success}}
+        <a href="/search?key={{.Key}}&page={{.Page}}" style="color: #ffffff;left: 42%;;font-size: 40px">收藏成功,返回</a>
+        {{else}}
+        <a href="/search?key={{.Key}}&page={{.Page}}" style="color: #ffffff;left: 42%;;font-size: 40px">收藏失败,返回</a>
+        {{end}}
+    </li>
+</div>
+<div id="footer">
+    <div style="width: 1100px;background-color: rgb(68, 68, 68);float: left;padding: 0 50px 0 50px;">
+        <li class=" top "><p class="copyright" style="font-size:3vh;color:#fff;float: right">© 2021 — 2022</p></li>
+    </div>
+</div>
+</body>
+<script src="../static/js/jQuery.min.js "></script>
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="200" src="../static/selfhome/files/back.js"></script>
+<script>
+    $(".ic").click(function() {
+        var content = $(this).children().children().children().last().html();
+        console.log(content);
+        localStorage.setItem("searchWord", content);
+        console.log(localStorage.getItem("searchWord"));
+        if (content !== "") {
+            window.location.href = '/search?key=' + content + '&page=1';
+        }
+    })
+</script>
+<script>
+    $("#for_search").submit(function(e) {
+        e.preventDefault();
+        var content = $("#ne")[0].value;
+        localStorage.setItem("searchWord", content);
+        console.log(localStorage.getItem("searchWord"));
+        if (content !== "") {
+            window.location.href = '/search?key=' + content + '&page=1';
+        }
+    })
+</script>
+<script src="../static/js/layer-v3.1.1/layer/layer.js "></script>
+<script src="../static/js/jquery.form.js "></script>
+<script src="../static/js/layui/layui.js "></script>
+<script src="../static/js/f.js "></script>
+
+</html>

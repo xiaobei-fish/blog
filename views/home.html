@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>首页</title>
+    <link rel="stylesheet" href="../static/css/f.css">
+    <link rel="stylesheet" href="../static/css/icon.css">
+    <link rel="stylesheet" href="../static/js/layui/css/layui.css">
+</head>
+
+<body style="background-color:rgb(68, 68, 68)">
+    <div id="tn-background">
+        <div id="top-nav">
+            <ul id="ulc">
+                {{if .IsLogin}}
+                <li class="top">
+                    <img src="{{.Img}}" data-position="center center"
+                         style="border-radius:50%;max-width:25px;max-height:25px;float: left" alt="">
+                    <a href="/selfhome" style="padding: 0 0 0 10px">{{.Username}}的主页</a>
+                </li>
+                <li id="line" class="top"></li>
+                <li class="top">
+                    <a title="点击退出登录" href='javascript:if (confirm("确定退出登录么？")){location="/exit"}'>退出登录</a>
+                </li>
+                {{else}}
+                <li class="top">
+                    <a class="sign" href="javascript:">注册</a>
+                </li>
+                <li id="line" class="top"></li>
+                <li class="top">
+                    <a class="login" href="javascript:">登录</a>
+                </li>
+                {{end}}
+
+            </ul>
+        </div>
+    </div>
+    <iframe width="280" scrolling="no" height="300" frameborder="0" allowtransparency="true"
+            src="https://i.tianqi.com?c=code&id=55&color=%23FFFFFF&bgc=%23000000&icon=1&site=12" style="float: right"></iframe>
+    <div id="head" style="width: 1100px;height: 1040px;">
+            <img src="../static/img/0.jpg" alt="Go一下" data-position="center center"
+                 style="border-radius:50%;max-width:200px;max-height:200px;position: absolute;left: 42%;top: 10%">
+        <li class="ms ms-s"><em class="iconfont ii" style="font-size: 40px;line-height: 40px;color: #ffffff">&#xe61c;</em>
+                <li class="ms">
+                    <form id="for_search" action="/search" method="GET" target="_blank">
+                        <input id="ne" class="in" style="width: 500px;padding: 0 20px;" type="text" name="keyWords" placeholder="请输入搜索关键字">
+                        <input style="visibility: hidden;width: 0;" id="in" type="submit">
+                    </form>
+                </li></li>
+        <div class="content" style="text-align:center;border-width:1px;border-style:solid;border-color:rgb(2, 204, 245);
+            background-color:#79918e6b;border-radius:20px; position: absolute; top: 41%">
+            <div style="color:#fff; font-size: 15px;" >
+                <li style="font-size: 20px; color:#fff;">********************************************************************************************************************************************</li>
+                <br>
+                <li style="font-size: 20px; color:#fff;position: absolute; left: 45%">热搜Blog前五：</li>
+                <br><br>
+                {{.Content}}
+                <li style="font-size: 20px; color:#fff;">********************************************************************************************************************************************</li>
+            </div>
+        </div>
+    </div>
+    <div id="footer">
+        <div style="width: 1100px;background-color: rgb(68, 68, 68);float: left;padding: 0 50px 0 50px;">
+            <li class=" top "><p class="copyright" style="font-size:3vh;color:#fff;float: right">© 2021 — 2022</p></li>
+        </div>
+    </div>
+</body>
+<script src="../static/js/jQuery.min.js "></script>
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="200" src="../static/selfhome/files/back.js"></script>
+<script>
+    $(".ic").click(function() {
+        var content = $(this).children().children().children().last().html();
+        console.log(content);
+        localStorage.setItem("searchWord", content);
+        console.log(localStorage.getItem("searchWord"));
+        if (content !== "") {
+            window.location.href = '/search?key=' + content + '&page=1';
+        }else {
+            window.location.href = '/all?&page=1';
+        }
+    })
+</script>
+<script>
+    $("#for_search").submit(function(e) {
+        e.preventDefault();
+        var content = $("#ne")[0].value;
+        localStorage.setItem("searchWord", content);
+        console.log(localStorage.getItem("searchWord"));
+        if (content !== "") {
+            window.location.href = '/search?key=' + content + '&page=1';
+        }else {
+            window.location.href = '/all?&page=1';
+        }
+    })
+</script>
+<script src="../static/js/layer-v3.1.1/layer/layer.js "></script>
+<script src="../static/js/jquery.form.js "></script>
+<script src="../static/js/layui/layui.js "></script>
+<script src="../static/js/f.js "></script>
+
+</html>

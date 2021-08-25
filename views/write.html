@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>撰写博客</title>
+    <link rel="stylesheet" href="../static/css/f.css">
+    <link rel="stylesheet" href="../static/css/icon.css">
+    <link rel="stylesheet" href="../static/js/layui/css/layui.css">
+</head>
+
+<body style="background-color:rgb(68, 68, 68)">
+    <ul class="layui-nav aaa">
+
+        <li class="layui-nav-item">
+            <a href="javascript:;">{{.Username}}</a>
+            <dl class="layui-nav-child">
+                <dd><a id="alter" href="javascript:;">修改密码</a></dd>
+                <dd><a href='javascript:if (confirm("确定退出登录么？")){location="/exit"}'>退出登录</a></dd>
+            </dl>
+        </li>
+        <li class="layui-nav-item">
+            <a href="/">首页</a>
+            <!--首页跳转-->
+        </li>
+        <li class="layui-nav-item">
+            <a href="/selfhome">个人主页</a>
+        </li>
+        <li class="layui-nav-item">
+            <a href="/write">撰写博客</a>
+        </li>
+        <li class="layui-nav-item">
+            <a href="/collect">我的收藏</a>
+        </li>
+        <li class="layui-nav-item">
+            <a href="/mine">我的博客</a>
+        </li>
+        <li class="layui-nav-item">
+            <a href="/friend">我的好友</a>
+        </li>
+    </ul>
+    <iframe width="280" scrolling="no" height="300" frameborder="0" allowtransparency="true"
+            src="https://i.tianqi.com?c=code&id=55&color=%23FFFFFF&bgc=%23000000&icon=1&site=12" style="float: right"></iframe>
+    <div id="head" style="width: 1100px;height: 640px;">
+        <p id="out" style="font-size: 40px;padding: 40px; color: #ffffff;">撰写博客</p>
+        <form id="write-art-form" method="post" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);">
+            <div style="font-size: 20px; color:#fff; float: left; padding: 0 20px 0 0; ">标题：</div>
+            <input type="text" placeholder="请输入标题" name="title" value="" style="font-size: 20px; ">
+            <br><br>
+            <div style="font-size: 20px; color:#fff; float: left; padding: 0 20px 0 0; ">标签：</div>
+            <input type="text" placeholder="请输入标签" name="tags" value="" style="font-size: 20px; ">
+            <p style="font-size: 20px; color: #3bfff2; float: right; padding: 0 0 0 20px; ">(多个标签请用&分割)</p>
+            <br><br>
+            <div style="font-size: 20px; color:#fff; float: left; padding: 0 20px 0 0; ">简介：</div>
+            <textarea placeholder="请输入简介" name="short" style="font-size: 20px; "></textarea>
+            <br><br>
+            <div style="font-size: 20px; color:#fff; float: left; padding: 0 20px 0 0; ">内容：</div>
+            <textarea id="content" placeholder="请输入内容" name="content" style="font-size: 20px; "></textarea>
+            <br><br>
+            <button type="button" onclick="history.back()" style="font-size: 20px; ">返回</button>
+            <button type="submit" id="write-submit" style="font-size: 20px; float: right">提交</button>
+        </form>
+    </div>
+    <div id="footer">
+        <div style="width: 1100px;background-color: rgb(68, 68, 68);float: left;padding: 0 50px 0 50px;">
+            <li class=" top "><p class="copyright" style="font-size:3vh;color:#fff;float: right">© 2021 — 2022</p></li>
+        </div>
+    </div>
+</body>
+<script src="../static/js/jQuery.min.js "></script>
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="200" src="../static/selfhome/files/back.js"></script>
+<script src="../static/js/lib/jquery-3.3.1.min.js"></script>
+<script src="../static/js/lib/jquery.url.js"></script>
+<script src="../static/js/blogs.js "></script>
+<script src="../static/js/layer-v3.1.1/layer/layer.js "></script>
+<script src="../static/js/jquery.form.js "></script>
+<script src="../static/js/layui/layui.js "></script>
+<script src="../static/js/f.js "></script>
+
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../static/css/icon.css">
+    <link href="../static/css/collectsheet.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/f.css">
+    <link rel="stylesheet" href="../static/js/layui/css/layui.css">
+    <title>我的博客</title>
+</head>
+
+<body style="background-color:rgb(68, 68, 68)">
+    <ul class="layui-nav aaa">
+
+        <li class="layui-nav-item">
+            <a href="javascript:;">{{.Username}}</a>
+            <dl class="layui-nav-child">
+                <dd><a id="alter" href="javascript:;">修改密码</a></dd>
+                <dd><a href='javascript:if (confirm("确定退出登录么？")){location="/exit"}'>退出登录</a></dd>
+            </dl>
+        </li>
+        <li class="layui-nav-item">
+            <a href="/">首页</a>
+            <!--首页跳转-->
+        </li>
+        <li class="layui-nav-item">
+            <a href="/selfhome">个人主页</a>
+        </li>
+        <li class="layui-nav-item">
+            <a href="/write">撰写博客</a>
+        </li>
+        <li class="layui-nav-item">
+            <a href="/collect">我的收藏</a>
+        </li>
+        <li class="layui-nav-item">
+            <a href="/mine">我的博客</a>
+        </li>
+        <li class="layui-nav-item">
+            <a href="/friend">我的好友</a>
+        </li>
+    </ul>
+    <iframe width="280" scrolling="no" height="300" frameborder="0" allowtransparency="true"
+            src="https://i.tianqi.com?c=code&id=55&color=%23FFFFFF&bgc=%23000000&icon=1&site=12" style="float: right"></iframe>
+    <p id="out" style="font-size: 40px;padding: 40px; color: #ffffff;">我的博客</p>
+    <div id="main" style="float: left; height: 620px;margin: 0 0 50px 0;width: 1500px;">
+        <div class="content" style="text-align:center;border-width:1px;border-style:solid;border-color:rgb(2, 204, 245);
+            background-color:#79918e6b;border-radius:20px; position: absolute; top: 35%; left: 5%">
+            <div style="color:#fff; font-size: 15px;" >
+                <li style="font-size: 20px; color:#fff;">********************************************************************************************************************************************</li>
+                <br>
+                <li style="font-size: 20px; color:#fff;position: absolute; left: 45%">{{.Username}}的博客：</li>
+                <br><br>
+                {{.Content}}
+                <li style="font-size: 20px; color:#fff;">********************************************************************************************************************************************</li>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer">
+        <div style="width: 1100px;background-color: rgb(68, 68, 68);float: left;padding: 0 50px 0 50px;">
+            <li class=" top "><p class="copyright" style="font-size:3vh;color:#fff;float: right">© 2021 — 2022</p></li>
+        </div>
+    </div>
+</body>
+<script src="../static/js/jQuery.min.js "></script>
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="200" src="../static/selfhome/files/back.js"></script>
+<script src="../static/js/lib/jquery-3.3.1.min.js"></script>
+<script src="../static/js/lib/jquery.url.js"></script>
+<script src="../static/js/blogs.js "></script>
+<script src="../static/js/layer-v3.1.1/layer/layer.js "></script>
+<script src="../static/js/jquery.form.js "></script>
+<script src="../static/js/layui/layui.js "></script>
+<script src="../static/js/f.js "></script>
+
+</html>
