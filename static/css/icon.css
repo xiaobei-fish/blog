@@ -1,0 +1,48 @@
+@font-face {
+    font-family: 'iconfont';
+    /* project id 1625065 */
+    src: url('//at.alicdn.com/t/font_1625065_exrd85b9icb.eot');
+    src: url('//at.alicdn.com/t/font_1625065_exrd85b9icb.eot?#iefix') format('embedded-opentype'), url('//at.alicdn.com/t/font_1625065_exrd85b9icb.woff2') format('woff2'), url('//at.alicdn.com/t/font_1625065_exrd85b9icb.woff') format('woff'), url('//at.alicdn.com/t/font_1625065_exrd85b9icb.ttf') format('truetype'), url('//at.alicdn.com/t/font_1625065_exrd85b9icb.svg#iconfont') format('svg');
+}
+
+.iconfont {
+    font-family: iconfont!important;
+    font-size: 50px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: .1px;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.iconfont_a {
+    cursor: pointer;
+    font-family: iconfont!important;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: .1px;
+    -moz-osx-font-smoothing: grayscale;
+    opacity: 0.4;
+}
+
+.iconfont_a:hover {
+    opacity: 1;
+}
+
+.iconfont_b {
+    color: tomato;
+    font-size: 100px;
+    font-family: iconfont!important;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: .1px;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.font {
+    font-size: 30px;
+    font-family: iconfont!important;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: .1px;
+    -moz-osx-font-smoothing: grayscale;
+}

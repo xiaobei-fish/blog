@@ -1,0 +1,410 @@
+div {
+    display: block;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+#line {
+    background-color: whitesmoke;
+    width: 1px;
+    height: 20px;
+    margin: 10px 12px;
+    opacity: 0.7;
+    padding: 0;
+}
+
+#tn-background {
+    height: 40px;
+    background-color: rgb(68, 68, 68);
+}
+
+.bc {
+    background-color: rgb(68, 68, 68);
+    z-index: 1000;
+    position: absolute;
+    width: 120px;
+}
+
+#top-nav {
+    width: 1200px;
+    height: 35px;
+    position: relative;
+    left: calc(50% - 1200px/2);
+}
+
+#pin-nav {
+    width: 1200px;
+    height: 40px;
+    position: relative;
+    left: calc(50% - 1200px/2);
+}
+
+li {
+    display: block;
+    float: left;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+.top {
+    height: 20px;
+    padding: 10px 0;
+    float: right;
+}
+
+.top a {
+    color: whitesmoke;
+    opacity: 0.4;
+    filter: alpha(opacity=40);
+}
+
+.top a:hover {
+    color: whitesmoke;
+    opacity: 1;
+    filter: alpha(opacity=100);
+}
+
+.hide {
+    visibility: hidden;
+}
+
+#head {
+    width: 1200px;
+    position: relative;
+    left: calc(50% - 1200px/2);
+}
+
+#class {
+    height: 350px;
+    width: 220px;
+    overflow: hidden;
+    float: left;
+}
+
+.ic {
+    width: 110px;
+    height: 60px;
+    display: block;
+    float: left;
+    text-align: center;
+}
+
+.ic a {
+    opacity: 0.6;
+    filter: alpha(opacity=60);
+}
+
+.ic a:hover {
+    color: #000;
+    opacity: 1;
+    filter: alpha(opacity=100);
+}
+
+.log_input {
+    width: 410px;
+    height: 50px;
+    font-size: 20px;
+    padding: 5px;
+    margin: 20px 0;
+}
+
+.log_submit {
+    width: 425px;
+    height: 60px;
+    font-size: 20px;
+    margin: 20px 0;
+    color: cornsilk;
+    background-color: crimson;
+    outline-style: none;
+    border: 0;
+    border-radius: 3px;
+}
+
+.if {
+    display: block;
+}
+
+.log_submit:hover {
+    background-color: red;
+}
+
+#m_search {
+    position: relative;
+    width: 300px;
+    left: calc(50% - 300px/2);
+}
+
+#ulc {
+    line-height: 20px;
+    font-size: 20px;
+    color: white;
+}
+
+.left {
+    cursor: pointer;
+    height: 20px;
+    padding: 10px 0;
+    margin: 0 20px;
+    opacity: 0.4;
+    filter: alpha(opacity=40);
+}
+
+.right {
+    cursor: pointer;
+    text-align: center;
+    padding: 10px;
+    opacity: 0.4;
+    filter: alpha(opacity=40);
+}
+
+.left:hover {
+    opacity: 1;
+    filter: alpha(opacity=100);
+}
+
+.right:hover {
+    opacity: 1;
+    filter: alpha(opacity=100);
+}
+
+.in {
+    font-size: 15px;
+    height: 35px;
+    border: 0;
+    border-radius: 3px;
+    margin: 2px;
+}
+
+.if {
+    margin: 0 0 0 100px;
+}
+
+.ii {
+    cursor: pointer;
+    opacity: 0.4;
+    filter: alpha(opacity=40);
+}
+
+.ii:hover {
+    opacity: 1;
+    filter: alpha(opacity=100);
+}
+
+#slideshow {
+    float: left;
+    margin: 30px 70px 0 70px;
+}
+
+.ms {
+    position: absolute;
+    left: 50%;
+    top: 34%;
+    transform: translate(-50%,-50%);
+}
+
+.ms-s {
+    margin: 0 30px 0 0;
+    position: relative;
+    left: 76.5%;
+    top: 33.09%;
+    transform: translate(-50%,-50%);
+}
+
+.ms0 {
+    margin: 0 0 0 0;
+}
+
+.ms1 {
+    margin: 0 5px 0 200px;
+}
+
+#news {
+    float: left;
+    width: 200px;
+    height: 300px;
+    margin: 30px 0 0 0;
+    padding: 10px;
+    background-color: whitesmoke;
+}
+
+.aaa {
+    height: 60px;
+}
+
+.layui-nav-child dd a {
+    text-align: center;
+}
+
+#work_area {
+    position: relative;
+    padding: 50px;
+    width: 1100px;
+    left: calc(50% - 1200px/2);
+    height: 1000px;
+    background-color: whitesmoke;
+}
+
+#history {
+    width: 1100px;
+    height: 1000px;
+}
+#message {
+    width: 1100px;
+    height: 390px;
+}
+
+.books {
+    background-color: white;
+    font-size: 0;
+    width: 546px;
+    height: 150px;
+    margin: 2px;
+    float: left;
+    border-radius: 3px;
+}
+
+.books:hover {
+    background-color: snow;
+}
+
+.b_img {
+    float: left;
+    width: 100px;
+    height: 120px;
+}
+
+.b_p {
+    width: 440px;
+    height: 150px;
+    float: left;
+    font-size: 25px;
+}
+
+.b_name {
+    padding: 15px 5px 5px 5px;
+    font-size: 25px;
+}
+
+.b_s {
+    padding: 5px;
+    font-size: 15px;
+    color: teal;
+}
+
+.b_t {
+    padding: 5px;
+    font-size: 15px;
+    width: 350px;
+    height: 50px;
+}
+
+#work_area_w {
+    position: relative;
+    width: 1122px;
+    left: calc(50% - 1222px/2);
+    height: 1000px;
+}
+
+#ranking {
+    width: 1200px;
+    position: relative;
+    left: calc(50% - 1200px/2);
+}
+
+.rank {
+    float: left;
+    width: 350px;
+    padding: 25px;
+    height: 500px;
+    margin: 25px 0 0 0;
+    background-color: whitesmoke;
+    border-radius: 3px;
+}
+
+#footer {
+    position: relative;
+    width: 1200px;
+    background-color: rgb(68, 68, 68);
+    left: calc(50% - 1200px/2);
+}
+
+#works {
+    background-color: whitesmoke;
+}
+
+#img {
+    float: left;
+    padding: 0 20px 0 0;
+}
+
+#pic {
+    width: 200px;
+    height: 298px;
+}
+
+#books_information {
+    float: left;
+    width: 500px;
+}
+
+#name_b {
+    font-size: 40px;
+    padding: 5px;
+}
+
+#detail {
+    padding: 10px;
+}
+
+.c_img {
+    border-radius: 3px;
+    box-shadow: 4px 4px rgb(185, 185, 185);
+    width: 200px;
+    height: 280px;
+    position: absolute;
+    left: calc(50% - 200px/2);
+}
+
+#rank {
+    margin: 30px 0 0 0;
+    float: left;
+    width: 1160px;
+    padding: 20px;
+    height: 600px;
+    background-color: whitesmoke;
+}
+
+#books_information_x {
+    width: 300px;
+    float: left;
+}
+
+#d_line {
+    float: left;
+    width: 2px;
+    height: 570px;
+    background-color: black;
+}
+
+#others {
+    float: left;
+}
+
+.others {
+    width: 528px;
+    padding: 5px;
+    background-color: white;
+    border-style: solid;
+    border-width: 0 0 1px 0;
+    border-color: rgb(139, 139, 139);
+}
+
+.others:hover {
+    background-color: thistle;
+}

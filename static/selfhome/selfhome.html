@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-Hans"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="files/css.css" type="text/css">
+  <link rel="stylesheet" href="files/font-awesome.css" type="text/css">
+  <link rel="stylesheet" href="files/style.css" type="text/css">
+  <title>个人主页</title>
+  <script src="files/jquery.js"></script>
+  <script src="files/skel.js"></script>
+  <script src="files/util.js"></script>
+  <script src="files/respond.js"></script>
+</head>
+<body style="padding:12% 5% 5% 5%;background-image:url(&quot;files/image0.jpg&quot;);background-size: cover">
+    <div id="wrapper">
+        <article id="home" class="panel special" style="display: flex;">
+            <div>
+                <img src="files/image1.jpg" alt="" data-position="center center" style="border-radius:50%;max-width:100px;max-height:100px;">
+            </div>
+            <div class="content" style="text-align:center;border-width:1px;border-style:solid;border-color:rgb(2, 204, 245);background-color:#79918e6b;border-radius:20px;">
+                <div class="inner">
+                    <header>
+                        <h1 style="font-size:3vh;color:#fff;">221900328_余一鸣</h1>
+                        <p>
+                            <span style="font-size:3vh;color:#fff;">回首往昔，更进一步</span>
+                        </p>
+                    </header>
+                    <nav id="nav">
+                        <ul class="actions vertical special spinY">
+                            <li><a href="#about-me" class="button"><h1 style="font-size:3vh;color:#fff;">个人信息</h1></a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </article>
+
+            <article id="about-me" class="panel secondary inactive" style="display: flex;">
+                <div>
+                    <img src="files/image1.jpg" alt="" data-position="center center" style="border-radius:50%;max-width:100px;max-height:100px;">
+                </div>
+                <div class="content" style="text-align:center;border-width:1px;border-style:solid;border-color:rgb(2, 204, 245);background-color:#79918e6b;border-radius:20px;">
+                    <div class="inner">
+                        <header>
+                            <h2 style="font-size:3vh;color:#fff;">余一鸣_个人信息</h2>
+                            <blockquote style="font-size:3vh;color:#fff;">乾坤未定，你我皆黑马</blockquote>
+                        </header>
+                        <p>
+                            <h3 style="font-size:3vh;color:#fff;">ID：221900328</h3><br>
+                            <h4 style="font-size:3vh;color:#fff;">性别：男</h4><br>
+                            <h5 style="font-size:3vh;color:#fff;">QQ：
+                                <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=564742021&amp;site=qq&amp;menu=yes" target="_blank">
+                                    <b style="font-size:3vh;color:#fff;">1597550247</b>
+                                </a>
+                            </h5><br>
+                            <h6 style="font-size:3vh;color:#fff;">年龄：18++</h6><br>
+                            <h7 style="font-size:3vh;color:#fff;">签名：可，持续的拔河，眼神可还会灼热。</h7><br>
+                            <h8 style="font-size:3vh;color:#fff;">兴趣：偶尔发发神经，听听歌，打打羽毛球。</h8><br>
+                            <h9 style="font-size:3vh;color:#fff;">一句话介绍：陌生人眼里的高冷，熟人眼里的疯子。</h9><del></del>
+                        </p>
+                        <ul class="actions spinX">
+                            <li><a href="#home" class="button"><h1 style="font-size:3vh;color:#fff;">返回</h1></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+        <footer id="footer" class="">
+            <p class="copyright" style="font-size:3vh;color:#fff;">© 2020 — 2021 <a target="_blank" href="#home" style="font-size:3vh;color:#fff;">个人页面</a></p>
+        </footer>
+        <script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="200" src="files/back.js"></script>
+<!-- 直接在下方script便于修改这一部分的设置 -->
+    <script>
+        (function($) {
+            skel.breakpoints({
+                xlarge: '(max-width: 1680px)',
+                large: '(max-width: 1280px)',
+                medium: '(max-width: 980px)',
+                small: '(max-width: 736px)',
+                xsmall: '(max-width: 480px)',
+                xxsmall: '(max-width: 360px)'
+            });
+            $(function() {
+                var $window = $(window),
+                    $document = $(document),
+                    $body = $('body'),
+                    $wrapper = $('#wrapper'),
+                    $footer = $('#footer');
+                $window.on('load', function() {
+                    window.setTimeout(function() {
+                        $body.removeClass('is-loading-0');
+                        window.setTimeout(function() {
+                            $body.removeClass('is-loading-1');
+                        }, 1500);
+                    }, 100);
+                });
+                $('form').placeholder();
+                var $wrapper = $('#wrapper'),
+                    $panels = $wrapper.children('.panel'),
+                    locked = true;
+                $panels.not($panels.first()).addClass('inactive').hide();
+                $panels.each(function() {
+                    var $this = $(this),
+                        $image = $this.children('.image'),
+                        $img = $image.find('img'),
+                        position = $img.data('position');
+                    $image.css('background-image', 'url(' + $img.attr('src') + ')');
+                    if (position) $image.css('background-position', position);
+                    $img.hide();
+                });
+                window.setTimeout(function() {
+                    locked = false;
+                }, 1250);
+                $('a[href^="#"]').on('click', function(event) {
+                    var $this = $(this),
+                        id = $this.attr('href'),
+                        $panel = $(id),
+                        $ul = $this.parents('ul'),
+                        delay = 0;
+                    event.preventDefault();
+                    event.stopPropagation();
+                    if (locked) return;
+                    locked = true;
+                    $this.addClass('active');
+                    if ($ul.hasClass('spinX') || $ul.hasClass('spinY')) delay = 250;
+                    window.setTimeout(function() {
+                        $panels.addClass('inactive');
+                        $footer.addClass('inactive');
+                        window.setTimeout(function() {
+                            $panels.hide();
+                            $panel.show();
+                            $document.scrollTop(0);
+                            window.setTimeout(function() {
+                                $panel.removeClass('inactive');
+                                $this.removeClass('active');
+                                locked = false;
+                                $window.triggerHandler('--refresh');
+                                window.setTimeout(function() {
+                                    $footer.removeClass('inactive');
+                                }, 250);
+                            }, 100);
+                        }, 350);
+                    }, delay);
+                });
+                if (skel.vars.IEVersion < 12) {
+                    $window.on('--refresh', function() {
+                        $wrapper.css('height', 'auto');
+                        window.setTimeout(function() {
+                            var h = $wrapper.height(),
+                                wh = $window.height();
+                            if (h < wh) $wrapper.css('height', '100vh');
+                        }, 0);
+                        if (skel.vars.IEVersion < 10) {
+                            var $panel = $('.panel').not('.inactive'),
+                                $image = $panel.find('.image'),
+                                $content = $panel.find('.content'),
+                                ih = $image.height(),
+                                ch = $content.height(),
+                                x = Math.max(ih, ch);
+                            $image.css('min-height', x + 'px');
+                            $content.css('min-height', x + 'px');
+                        }
+                    });
+                    $window.on('load', function() {
+                        $window.triggerHandler('--refresh');
+                    });
+                    $('.spinX').removeClass('spinX');
+                    $('.spinY').removeClass('spinY');
+                }
+            });
+        })(jQuery);
+    </script>
+    </div>
+
+</body></html>
