@@ -63,6 +63,7 @@ type NoteBlockParam struct {
 	Id        string
 	NotedId   string
 	UserId    string
+	NotedName string
 	Content	  string
 }
 //首页模板
@@ -194,6 +195,7 @@ func MakeSmallNoteBlocks(notes []Note) template.HTML {
 		homeParam.Id = note.Id
 		homeParam.NotedId = note.NotedId
 		homeParam.UserId = note.UserId
+		homeParam.NotedName = QueryUsernameWithId(note.NotedId)
 		if len(note.Content) > 10 {
 			homeParam.Content = note.Content[0: 10]
 		}else{
@@ -202,7 +204,7 @@ func MakeSmallNoteBlocks(notes []Note) template.HTML {
 
 		//处理变量
 		//ParseFile解析该文件，用于插入变量
-		t, _ := template.ParseFiles("views/block6.html")
+		t, _ := template.ParseFiles("views/block7.html")
 		buffer := bytes.Buffer{}
 		//就是将html文件里面的比那两替换为穿进去的数据
 		t.Execute(&buffer, homeParam)
@@ -219,6 +221,7 @@ func MakeNoteBlocks(notes []Note) template.HTML {
 		homeParam.Id = note.Id
 		homeParam.NotedId = note.NotedId
 		homeParam.UserId = note.UserId
+		homeParam.NotedName = QueryUsernameWithId(note.NotedId)
 		homeParam.Content = note.Content
 
 		//处理变量

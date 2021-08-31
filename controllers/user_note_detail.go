@@ -14,7 +14,7 @@ func (c *NoteController) Get() {
 	if c.Loginuser != nil {
 		c.Data["Username"] = c.Loginuser.(string)
 	}
-	noteId := c.GetString("notedId")
+	noteId := c.GetString("id")
 	fmt.Printf("%s的留言板\n",noteId)
 	c.Data["NoteName"] = models.QueryUsernameWithId(noteId)
 	c.Data["NotedId"] = noteId
