@@ -37,7 +37,7 @@ func (c *RegisterController) Post() {
 		c.ServeJSON()
 		return
 	}else if id1 > 0 {
-		c.Data["json"] = map[string]interface{}{"code": 0, "message": "该邮箱已经被注册过"}
+		c.Data["json"] = map[string]interface{}{"code": 0, "message": "该手机号已经被注册过"}
 
 		c.ServeJSON()
 		return
