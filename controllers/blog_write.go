@@ -41,5 +41,7 @@ func (c *WriteController) Post() {
 	}
 	c.Data["json"] = response
 
+	models.SetBlogRowsNum()
+
 	c.ServeJSON()
 }

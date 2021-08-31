@@ -195,7 +195,7 @@ func MakeSmallNoteBlocks(notes []Note) template.HTML {
 		homeParam.Id = note.Id
 		homeParam.NotedId = note.NotedId
 		homeParam.UserId = note.UserId
-		homeParam.NotedName = QueryUsernameWithId(note.NotedId)
+		homeParam.NotedName = QueryUsernameWithId(note.UserId)
 		if len(note.Content) > 10 {
 			homeParam.Content = note.Content[0: 10]
 		}else{
@@ -221,7 +221,7 @@ func MakeNoteBlocks(notes []Note) template.HTML {
 		homeParam.Id = note.Id
 		homeParam.NotedId = note.NotedId
 		homeParam.UserId = note.UserId
-		homeParam.NotedName = QueryUsernameWithId(note.NotedId)
+		homeParam.NotedName = QueryUsernameWithId(note.UserId)
 		homeParam.Content = note.Content
 
 		//处理变量

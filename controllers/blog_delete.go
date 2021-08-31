@@ -21,6 +21,8 @@ func (c *BlogDeleteController) Get(){
 	_, e := models.DeleteBlog(Id, strconv.Itoa(userId))
 	_, E := models.DeleteTogether(Id)
 
+	models.SetBlogRowsNum()
+
 	if e != nil || E != nil {
 		fmt.Println("删除失败")
 	}else {
