@@ -18,6 +18,7 @@ httpport = 8080
 runmode = dev
 
 #mysql配置
+#docker配置需要修改host，当然用docker-compose是极好的
 driverName = mysql
 mysqluser = 账号
 mysqlpwd = 密码
