@@ -10,10 +10,10 @@
 
 
 
-### app.conf 配置
+### conf/app.conf 配置
 
 ```shell
-appname = web_collect
+appname = web
 httpport = 8080
 runmode = dev
 
