@@ -1,10 +1,10 @@
 package controllers
 
 import (
+	"blog/models"
+	"blog/utils"
 	"fmt"
 	"github.com/astaxie/beego"
-	"web/models"
-	"web/utils"
 )
 
 type LoginController struct {
@@ -20,16 +20,21 @@ func (c *LoginController) Post() {
 	password := c.GetString("password")
 	fmt.Println("username:", username, ",password:", password)
 
-	id := models.QueryUserWithGenre(username, utils.MD5(password),"1' or genre='2")
-	fmt.Println("id:", id)
+	con0 := fmt.Sprintf("where username='%s' and password='%s'",username,utils.MD5(password) + models.QuerySaltWithUsername(username))
+	con1 := fmt.Sprintf("where phone='%s' and password='%s'",username,utils.MD5(password) + models.QuerySaltWithUsername(username))
 
-	if id > 0 {
+	id0 := models.QueryUserWithCon(con0)
+	id1 := models.QueryUserWithCon(con1)
+	fmt.Println("id0:", id0)
+	fmt.Println("id1:",id1)
+
+	if id0 > 0 || id1 > 0 {
 		//设置session以免密登录
 		c.SetSession("loginuser", username)
 
-		c.Data["json"] = map[string]interface{}{"code": 1, "message": "成功    XX小说网欢迎您"}
+		c.Data["json"] = map[string]interface{}{"code": 1, "message": "登录成功"}
 	} else {
-		c.Data["json"] = map[string]interface{}{"code": 0, "message": "失败,密码错误或无此用户"}
+		c.Data["json"] = map[string]interface{}{"code": 0, "message": "登录失败"}
 	}
 	c.ServeJSON()
 }

@@ -23,7 +23,7 @@ $("#alter").click(
                 alert("修改状态:" + data.message + "   请您重新登录")
                 if (data.code == 1) {
                     setTimeout(function() {
-                        window.location.href = "/home"
+                        window.location.href = "/"
                     }, 1000)
                 }
             },

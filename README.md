@@ -10,10 +10,10 @@
 
 
 
-#### app.conf配置
+### app.conf 配置
 
 ```shell
-appname = web
+appname = web_collect
 httpport = 8080
 runmode = dev
 
@@ -23,7 +23,7 @@ mysqluser = 账号
 mysqlpwd = 密码
 host = localhost
 port = 3306
-dbname = 数据库
+dbname = 数据库名
 
 #session
 Sessionon = true
@@ -33,11 +33,8 @@ sessiongcmaxlifetime = 5400
 sessionproviderconfig = "./tmp"
 sessioncookielifetime = 5400
 
-#页码展示小说配置
-novelListPageNum = 8
-
-#页码展示用户配置
-userListPageNum = 8
+#翻页配置,一页5个数据
+blogListPageNum = 5
 
 ```
 

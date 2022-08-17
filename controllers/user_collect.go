@@ -1,35 +1,21 @@
 package controllers
 
 import (
-	"fmt"
-	"log"
-	"strconv"
-	"web/models"
+	"blog/models"
 )
 
-type PageController struct {
+type CollectController struct {
 	JudgeController
 }
 
-func (c *PageController) Get() {
-	c.Data["Username"] = c.Loginuser
-	userid := models.QueryUserWithUsername(c.Loginuser.(string))
-	c.Data["Userid"] = userid
-	c.TplName = "collect.html"
-}
-
-func (c *PageController) Post() {
-	//得到小说块小说对应的id
-	novelID := c.GetString("id")
-	userid := models.QueryUserWithUsername(c.Loginuser.(string))
-	userId := strconv.Itoa(userid)
-
-	fmt.Println("删除的收藏小说id:", novelID)
-
-	_, err := models.DeleteCollectedNovel(novelID,userId)
-	_, _ = models.UpdateRankByDelete(novelID)
-	if err != nil {
-		log.Println(err)
+func (c *CollectController) Get() {
+	if c.Loginuser != nil {
+		c.Data["Username"] = c.Loginuser.(string)
+		c.Data["Img"] = models.QueryUserHeadImgWithUsername(c.Loginuser.(string))
 	}
-	c.Redirect("/page", 302)
+	blogList := models.QueryUserCollectWithId(models.QueryUserWithUsername(c.Loginuser.(string)))
+
+	c.Data["Content"] = models.MakeCollectBlocks(blogList)
+
+	c.TplName = "collect.html"
 }

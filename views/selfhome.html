@@ -10,8 +10,9 @@
     <title>个人页面</title>
 </head>
 
-<body>
+<body style="background-color:rgb(68, 68, 68)">
     <ul class="layui-nav aaa">
+
         <li class="layui-nav-item">
             <a href="javascript:;">{{.Username}}</a>
             <dl class="layui-nav-child">
@@ -20,27 +21,60 @@
             </dl>
         </li>
         <li class="layui-nav-item">
-            <a href="/home">首页</a>
+            <a href="/">首页</a>
             <!--首页跳转-->
         </li>
         <li class="layui-nav-item">
             <a href="/selfhome">个人主页</a>
         </li>
-
         <li class="layui-nav-item">
-            <a href="/page">我的收藏</a>
+            <a href="/write">撰写博客</a>
         </li>
         <li class="layui-nav-item">
-            <a href="/writer">作家专区</a>
+            <a href="/collect">我的收藏</a>
+        </li>
+        <li class="layui-nav-item">
+            <a href="/mine">我的博客</a>
+        </li>
+        <li class="layui-nav-item">
+            <a href="/friend">我的好友</a>
         </li>
     </ul>
-    <div id="work_area">
-        <div style="margin: 100px;">
-            <!--
-                后面渲染一下量值。
-            -->
-            <p>我收藏的书籍数量:{{.CollectNum}}</p>
-            <p>我创作的书籍数量:{{.CreateNum}}</p>
+    <iframe width="280" scrolling="no" height="300" frameborder="0" allowtransparency="true"
+            src="https://i.tianqi.com?c=code&id=55&color=%23FFFFFF&bgc=%23000000&icon=1&site=12" style="float: right"></iframe>
+    <div id="message">
+        <p id="out" style="font-size: 40px;padding: 60px; color: #ffffff;">个人资料</p>
+        <div id="main" style="float: left; height: 390px; margin: 0 0 50px 0;width: 1500px;">
+
+            <form id="message-form" method="post" class="form" style="position: absolute; left: 30%; top: 45%; transform: translate(-50%,-50%);">
+                <div style="font-size: 20px; color:#fff; float: left; padding: 0 20px 0 0; ">用户名：</div>
+                <input type="text" placeholder="请输入用户名" name="username" value="{{.Username}}" style="font-size: 20px; ">
+                <br><br>
+                <div style="font-size: 20px; color:#fff; float: left; padding: 0 20px 0 0; ">电话：　</div>
+                <input type="text" placeholder="请输入电话号码" name="phone" value="{{.Phone}}" style="font-size: 20px; " disabled>
+                <br><br>
+                <div style="font-size: 20px; color:#fff; float: left; padding: 0 20px 0 0; ">用户Id：</div>
+                <input type="text" placeholder="请输入Id" name="userId" value="{{.userId}}" style="font-size: 20px; " disabled>
+                <br><br>
+                <button type="button" onclick="history.back()" style="font-size: 20px; ">返回</button>
+                <button type="submit" id="message-button" style="font-size: 20px; float: right">提交</button>
+            </form>
+
+            <img src="{{.Img}}" alt="" data-position="center center"
+                 style="border-radius:50%;max-width:100px;max-height:100px;position: absolute; left: 66%; top: 30%;">
+            <br><br>
+            <form method="post" style="position: absolute; left: 70%; top: 50%; transform: translate(-50%,-50%);">
+                <p id="out" style="font-size: 20px;color: #ffffff;">修改头像：</p>
+                <br>
+                <input type="file" id="album-upload-file" name="upload">
+                <input type="button" id="album-upload-button" value="提交文件">
+            </form>
+
+        </div>
+    </div>
+    <div id="footer">
+        <div style="width: 1100px;background-color: rgb(68, 68, 68);float: left;padding: 0 50px 0 50px;">
+            <li class=" top "><p class="copyright" style="font-size:3vh;color:#fff;float: right">© 2021 — 2022</p></li>
         </div>
     </div>
 </body>
@@ -48,7 +82,11 @@
 <script src="../static/js/layer-v3.1.1/layer/layer.js"></script>
 <script src="../static/js/jquery.form.js"></script>
 <script src="../static/js/layui/layui.js"></script>
-<script src="../static/js/alter.js"></script>
+<script src="../static/js/lib/jquery-3.3.1.min.js"></script>
+<script src="../static/js/lib/jquery.url.js"></script>
+<script src="../static/js/blogs.js"></script>
 <script src="../static/js/f.js"></script>
+<script src="../static/js/alter.js"></script>
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="200" src="../static/selfhome/files/back.js"></script>
 
 </html>
