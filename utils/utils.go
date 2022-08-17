@@ -4,15 +4,15 @@ import (
 	"crypto/md5"
 	"database/sql"
 	"fmt"
-	_ "github.com/Go-SQL-Driver/mysql"
 	"github.com/astaxie/beego"
+	_ "github.com/go-sql-driver/mysql"
 	"log"
 	"time"
 )
 
 var db *sql.DB
 
-func InitMysql(){
+func InitMysql() {
 	fmt.Println("InitMysql....")
 	driverName := beego.AppConfig.String("driverName")
 
@@ -37,6 +37,7 @@ func InitMysql(){
 		CreateTablbWithNote()
 	}
 }
+
 //操作数据库
 func ModifyDB(sql string, args ...interface{}) (int64, error) {
 	//fmt.Println("sql::",sql)
@@ -52,6 +53,7 @@ func ModifyDB(sql string, args ...interface{}) (int64, error) {
 	}
 	return count, nil
 }
+
 //创建用户表
 func CreateTableWithUser() {
 	sql := `CREATE TABLE IF NOT EXISTS blog_users(
@@ -65,8 +67,9 @@ func CreateTableWithUser() {
 		);`
 	ModifyDB(sql)
 }
+
 //创建博客信息表
-func CreateTablbWithBlog()  {
+func CreateTablbWithBlog() {
 	sql := `CREATE TABLE IF NOT EXISTS blog_info(
 		id INT(11)  NOT NULL PRIMARY KEY AUTO_INCREMENT,
 		user_id INT(10) NOT NULL,
@@ -80,8 +83,9 @@ func CreateTablbWithBlog()  {
 		);`
 	ModifyDB(sql)
 }
+
 //创建用户收藏表
-func CreateTablbWithCollect()  {
+func CreateTablbWithCollect() {
 	sql := `CREATE TABLE IF NOT EXISTS blog_collect(
 		id INT(11)  NOT NULL PRIMARY KEY AUTO_INCREMENT,
 		user_id INT(10) NOT NULL,
@@ -89,8 +93,9 @@ func CreateTablbWithCollect()  {
 		);`
 	ModifyDB(sql)
 }
+
 //创建用户好友表
-func CreateTablbWithFriends()  {
+func CreateTablbWithFriends() {
 	sql := `CREATE TABLE IF NOT EXISTS blog_friend(
 		id INT(11)  NOT NULL PRIMARY KEY AUTO_INCREMENT,
 		user_id INT(10) NOT NULL,
@@ -98,8 +103,9 @@ func CreateTablbWithFriends()  {
 		);`
 	ModifyDB(sql)
 }
+
 //创建用户留言表
-func CreateTablbWithNote()  {
+func CreateTablbWithNote() {
 	sql := `CREATE TABLE IF NOT EXISTS blog_note(
 		id INT(11)  NOT NULL PRIMARY KEY AUTO_INCREMENT,
 		noted_id INT(10) NOT NULL,
@@ -116,13 +122,15 @@ func QueryRowDB(sql string) *sql.Row {
 func QueryDB(sql string) (*sql.Rows, error) {
 	return db.Query(sql)
 }
+
 //MD5加密密码
-func MD5(str string) string{
-	md5str := fmt.Sprintf("%x",md5.Sum([]byte(str)))
-	return  md5str
+func MD5(str string) string {
+	md5str := fmt.Sprintf("%x", md5.Sum([]byte(str)))
+	return md5str
 }
+
 //加盐
-func Salt() string{
+func Salt() string {
 	salt := time.Now().Unix()
 	return string(salt)
 }
