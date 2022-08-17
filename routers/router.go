@@ -1,33 +1,37 @@
 package routers
 
 import (
-	"blog/controllers"
 	"github.com/astaxie/beego"
+	"web/controllers"
 )
 
-func init() {
-	beego.Router("/", &controllers.HomeController{})								//首页
-	beego.Router("/register", &controllers.RegisterController{})					//注册
-	beego.Router("/login", &controllers.LoginController{})						//登录
-	beego.Router("/exit",&controllers.ExitController{})							//退出
-	beego.Router("/alarm",&controllers.AlarmController{})							//提示
-	//beego.Router("/forget",&controllers.ForgetController{})						//忘记密码
-	beego.Router("/selfhome",&controllers.SelfHomeController{})					//个人页面
-	beego.Router("/img",&controllers.ImgController{})								//头像更新
-	beego.Router("/alter",&controllers.AlterController{})							//修改密码
-	beego.Router("/search",&controllers.SearchController{})						//搜索界面
-	beego.Router("/all",&controllers.AllBlogController{})							//全部博客
-	beego.Router("/write",&controllers.WriteController{})							//撰写博客
-	beego.Router("/mine",&controllers.MineController{})							//我的博客
-	beego.Router("/collect",&controllers.CollectController{})						//我的收藏
-	beego.Router("/detail",&controllers.DetailController{})						//博客详细
-	beego.Router("/like",&controllers.LikeController{})							//点赞博客
-	beego.Router("/blog_collect",&controllers.BlogCollectController{})			//收藏博客
-	beego.Router("/delete",&controllers.BlogDeleteController{})					//删除博客
-	beego.Router("/update",&controllers.UpdateBlogController{})					//更新博客
-	beego.Router("/delete_collect",&controllers.CollectDeleteController{})		//删除收藏
-	beego.Router("/friend",&controllers.FriendController{})						//我的好友
-	beego.Router("/add",&controllers.AddController{})								//添加好友
-	beego.Router("/info_center",&controllers.CenterController{})					//好友界面
-	beego.Router("/note",&controllers.NoteController{})							//留言页面
+func init(){
+	beego.Router("/home",&controllers.HomeController{})						//首页
+	beego.Router("/selfhome",&controllers.SelfhomeController{})				//个人首页
+	beego.Router("/register", &controllers.RegisterController{})				//注册
+	beego.Router("/login", &controllers.LoginController{})					//登录
+	beego.Router("/exit",&controllers.ExitController{})						//退出
+	beego.Router("/alter",&controllers.UserAlterPasswordController{})			//修改密码
+	beego.Router("/book/:id",&controllers.BookDetailController{})				//小说详细页
+
+	beego.Router("/admin", &controllers.AdminController{})					//管理员登录
+	beego.Router("/admin/home", &controllers.AdminHomeController{})			//管理员首页
+	beego.Router("/admin/books", &controllers.AdminBooksController{})			//管理员管理书籍
+	beego.Router("/admin/books/delete", &controllers.DeleteNovelController{}) //管理员删除书籍
+	beego.Router("/admin/user/delete", &controllers.DeleteUserController{})	//管理员删除书籍
+	beego.Router("/admin/user", &controllers.AdminUserController{})			//管理员管理用户
+	beego.Router("/admin/exit",&controllers.AdminExitController{})			//管理员退出
+
+	beego.Router("/result",&controllers.ResultController{})					//渲染搜索结果展示URL,以及用户收藏
+	beego.Router("/search",&controllers.SearchController{})					//搜索结果jsonURL
+	beego.Router("/writer",&controllers.WriterController{})					//作家页面
+	beego.Router("/create/?page=:page",&controllers.UrlController{})			//作家小说jsonURL
+
+	beego.Router("/page",&controllers.PageController{})						//书库数据渲染URL
+	beego.Router("/collect/?page=:page",&controllers.CollectController{})		//书库数据jsonURL
+	beego.Router("/admin_books/?page=:page",&controllers.Url1Controller{})	//管理员书库数据jsonURL
+	beego.Router("/admin_user/?page=:page",&controllers.Url2Controller{}) 	//管理员用户数据jsonURL
+
+	//爬虫专用
+	beego.Router("/crawl_novel", &controllers.CrawlNovelController{},"*:CrawlNovel")
 }

@@ -1,107 +1,30 @@
 package models
 
 import (
-	"blog/utils"
 	"fmt"
 	"github.com/astaxie/beego/orm"
+	"web/utils"
 )
 
 type User struct {
-	Id         string `orm:"column(uid);pk"` // 设置主键
+	Id         string
 	Username   string
 	Password   string
-	Salt	   string
-	Phone	   string
-	Img		   string
+	Genre	   string // 1 普通用户， 2 管理员
+	Status     int 	  // 0 正常状态， 1删除
 	Createtime int64
 }
 
-type Collect struct {
-	Id		string
-	UserId	string
-	BlogId	string
-}
-
-type Blog struct {
-	Id		string
-	UserId  string
-	Title	string
-	Short	string
-	Author	string
-	Tag		string
-	Content string
-	Like	string
-	Read	int
-}
-
-type Note struct {
-	Id		string
-	NotedId	string
-	UserId 	string
-	Content string
-}
 
 //插入新用户数据到数据库
 func InsertUser(user User) (int64, error) {
-	return utils.ModifyDB("insert into blog_users(username,password,salt,img,phone,createtime) values (?,?,?,?,?,?)",
-		user.Username, user.Password, user.Salt, user.Img, user.Phone, user.Createtime)
+	return utils.ModifyDB("insert into users(username,password,genre,status,createtime) values (?,?,?,?,?)",
+		user.Username, user.Password, user.Genre, user.Status, user.Createtime)
 }
-//插入新文章数据到数据库
-func InsertBlog(blog Blog) (int64, error) {
-	return utils.ModifyDB("insert into blog_info(user_id,blog_title,blog_short,blog_author,blog_tag,blog_content," +
-		"blog_like,blog_read) values (?,?,?,?,?,?,?,?)",
-		blog.UserId, blog.Title, blog.Short, blog.Author, blog.Tag, blog.Content, blog.Like, blog.Read)
-}
-//插入新好友数据到数据库
-func InsertFriend(myId, f_Id string) (int64, error) {
-	return utils.ModifyDB("insert into blog_friend(user_id,friend_id) values (?,?)", myId, f_Id)
-}
-//插入新留言数据到数据库
-func InsertNote(note Note) (int64, error) {
-	return utils.ModifyDB("insert into blog_note(noted_id,user_id,user_note) values (?,?,?)",
-		note.NotedId,note.UserId,note.Content)
-}
-//更新新文章数据到数据库
-func UpdateBlog(blog Blog) (int64, error) {
-	return utils.ModifyDB("update blog_info set blog_title=?, blog_short=?, blog_tag=?, blog_content=? where id=?",
-		blog.Title, blog.Short, blog.Tag, blog.Content, blog.Id)
-}
-//更新博客浏览量
-func UpdateRead(id string) (int64, error) {
-	return utils.ModifyDB("update blog_info set blog_read=blog_read+1 where id=?", id)
-}
-//点赞博客
-func UpdateLike(id string) (int64, error) {
-	return utils.ModifyDB("update blog_info set blog_like=blog_like+1 where id=?", id)
-}
-//更新用户信息
-func UpdateInfo(id string, name string) (int64, error) {
-	return utils.ModifyDB("update blog_users set username=? where id=?", name, id)
-}
-//更新用户头像
-func UpdateImg(id string, img string) (int64, error) {
-	return utils.ModifyDB("update blog_users set img=? where id=?", img, id)
-}
-//删除博客
-func DeleteBlog(id string, userId string) (int64, error) {
-	return utils.ModifyDB("delete from blog_info where id=? and user_id=?",id,userId)
-}
-//删除收藏
-func DeleteCollect(userId, blogId string) (int64, error) {
-	return utils.ModifyDB("delete from blog_collect where user_id=? and blog_id=?",userId,blogId)
-}
-//删除博客的同时删除收藏
-func DeleteTogether(blogId string) (int64, error) {
-	return utils.ModifyDB("delete from blog_collect where blog_id=?",blogId)
-}
-//插入新用户收藏数据到数据库
-func InsertCollect(collect Collect) (int64, error) {
-	return utils.ModifyDB("insert into blog_collect(user_id,blog_id) values (?,?)",
-		collect.UserId, collect.BlogId)
-}
+
 //按条件查询用户,返回用户的id
 func QueryUserWithCon(con string) int {
-	sql := fmt.Sprintf("select id from blog_users %s", con)
+	sql := fmt.Sprintf("select id from users %s", con)
 	fmt.Println(sql)
 	row := utils.QueryRowDB(sql)
 	id := 0
@@ -109,220 +32,84 @@ func QueryUserWithCon(con string) int {
 	fmt.Println("user的id:",id)
 	return id
 }
-//根据用户名查询id
-func QueryUserWithUsername(username string) int {
-	sql := fmt.Sprintf("where username='%s'", username)
-	return QueryUserWithCon(sql)
-}
-//根据电话查询id
-func QueryUserWithPhone(phone string) int {
-	sql := fmt.Sprintf("where phone='%s'", phone)
-	return QueryUserWithCon(sql)
-}
-//电话校验
-func QueryUserWithPhoneAndId(phone, Id string) int {
-	sql := fmt.Sprintf("where phone='%s' and id='%s'", phone, Id)
-	return QueryUserWithCon(sql)
-}
-//返回用户的盐
-func QuerySaltWithUsername(name string) string {
-	sql := fmt.Sprintf("select salt from blog_users where username='%s'",name)
-	fmt.Println(sql)
-	row := utils.QueryRowDB(sql)
-	salt := ""
-	row.Scan(&salt)
-	fmt.Println("user的盐:",salt)
-	return salt
-}
-//返回用户名
-func QueryUsernameWithId(Id string) string {
-	sql := fmt.Sprintf("select username from blog_users where id='%s'",Id)
-	fmt.Println(sql)
-	row := utils.QueryRowDB(sql)
-	username := ""
-	row.Scan(&username)
 
-	return username
-}
-//返回用户的头像
-func QueryUserHeadImgWithUsername(name string) string{
-	sql := fmt.Sprintf("select img from blog_users where username='%s'",name)
-	fmt.Println(sql)
-	row := utils.QueryRowDB(sql)
-	img := ""
-	row.Scan(&img)
-	fmt.Println("user的头像:",img)
-	return img
-}
-//返回用户的信息
-func QueryUserInfoWithUsername(name string) []User{
-	var user []User
-	sql := fmt.Sprintf("select id,username,phone from blog_users where username='%s'",name)
-	fmt.Println(sql)
-	rows, _ := utils.QueryDB(sql)
-	for rows.Next() {
-		id := "0"
-		username := ""
-		phone := ""
-		rows.Scan(&id,&username,&phone)
-		tmp := User {
-			Id: id, Username:username, Phone:phone,
-		}
-		user = append(user,tmp)
-	}
-	return user
-}
-//按条件查询用户收藏返回id
+//按条件查询用户收藏
 func QueryUserCollectWithCon(con string) int {
-	sql := fmt.Sprintf("select id from blog_collect %s", con)
+	sql := fmt.Sprintf("select id from user_collect %s", con)
 	fmt.Println(sql)
 	row := utils.QueryRowDB(sql)
 	id := 0
 	row.Scan(&id)
 	return id
 }
-//根据id查询收藏
-func QueryUserCollectWithId(user_Id int) []Blog {
-	var blog []Blog
-	sql := fmt.Sprintf("select * from blog_info where id in (select blog_id from blog_collect where user_id=%d)", user_Id)
-	fmt.Println(sql)
-	rows, _ := utils.QueryDB(sql)
-	for rows.Next() {
-		id := "0"
-		userId := ""
-		title := ""
-		short := ""
-		author := ""
-		tag := ""
-		content := ""
-		like := ""
-		read := 0
-		rows.Scan(&id,&userId,&title,&short,&author,&tag,&content,&like,&read)
-		tmp := Blog{
-			Id: id, UserId: userId, Title: title, Short: short, Author: author,
-			Tag: tag, Content: content, Like: like, Read: read,
-		}
-		blog = append(blog,tmp)
-	}
-	return blog
+
+//根据用户名查询id
+func QueryUserWithUsername(username string) int {
+	sql := fmt.Sprintf("where username='%s'", username)
+	return QueryUserWithCon(sql)
 }
-//根据id查询好友
-func QueryUserFriendsWithId(user_Id int) []User {
-	var friend []User
-	sql := fmt.Sprintf("select id,username,phone from blog_users where id in " +
-		"(select friend_id from blog_friend where user_id=%d)", user_Id)
-	fmt.Println(sql)
-	rows, _ := utils.QueryDB(sql)
-	for rows.Next() {
-		id := "0"
-		userName := ""
-		phone := ""
-		rows.Scan(&id,&userName,&phone)
-		tmp := User{
-			Id: id, Username: userName, Phone: phone,
-		}
-		friend = append(friend,tmp)
-	}
-	return friend
+
+//根据用户种类，查询id
+func QueryUserWithGenre(username, password, genre string) int {
+	sql := fmt.Sprintf("where username='%s' and password='%s' and (genre = '%s')", username, password, genre)
+	return QueryUserWithCon(sql)
 }
-//根据id查询博客内容
-func QueryBlogWithBlogId(Id string) []Blog{
-	var blog []Blog
-	sql := fmt.Sprintf("select * from blog_info where id=%s", Id)
-	fmt.Println(sql)
-	rows, _ := utils.QueryDB(sql)
-	for rows.Next() {
-		id := "0"
-		userId := ""
-		title := ""
-		short := ""
-		author := ""
-		tag := ""
-		content := ""
-		like := ""
-		read := 0
-		rows.Scan(&id,&userId,&title,&short,&author,&tag,&content,&like,&read)
-		tmp := Blog{
-			Id: id, UserId: userId, Title: title, Short: short, Author: author,
-			Tag: tag, Content: content, Like: like, Read: read,
-		}
-		blog = append(blog,tmp)
-	}
-	return blog
+
+//根据用户id，检查是否已经收藏
+func QueryBookWithUserId(userId, bookId string) int {
+	sql := fmt.Sprintf("where user_ids='%s' and novel_ids='%s'", userId, bookId)
+	return QueryUserCollectWithCon(sql)
 }
-//根据id查询留言内容
-func QueryNoteWithNotedId(Id string) []Note{
-	var note []Note
-	sql := fmt.Sprintf("select * from blog_note where noted_id=%s", Id)
-	fmt.Println(sql)
-	rows, _ := utils.QueryDB(sql)
-	for rows.Next() {
-		id := "0"
-		notedId := ""
-		userId := ""
-		content := ""
-		rows.Scan(&id,&notedId,&userId,&content)
-		tmp := Note{Id: id, NotedId: notedId, UserId: userId, Content: content}
-		note = append(note,tmp)
+
+var usercileRowsNum  = 0
+
+//只有首次获取行数的时候采取统计表里的行数,好像没啥用,前端处理好了
+func GetUserRowsNum() int {
+	if usercileRowsNum == 0 {
+		usercileRowsNum = QueryNovelRowNum()
 	}
-	return note
+	return usercileRowsNum
 }
-//根据用户id查询用户博客
-func QueryBlogWithUserId(Id string) []Blog{
-	var blog []Blog
-	sql := fmt.Sprintf("select * from blog_info where user_id=%s", Id)
-	fmt.Println(sql)
-	rows, _ := utils.QueryDB(sql)
-	for rows.Next() {
-		id := "0"
-		userId := ""
-		title := ""
-		short := ""
-		author := ""
-		tag := ""
-		content := ""
-		like := ""
-		read := 0
-		rows.Scan(&id,&userId,&title,&short,&author,&tag,&content,&like,&read)
-		tmp := Blog{
-			Id: id, UserId: userId, Title: title, Short: short, Author: author,
-			Tag: tag, Content: content, Like: like, Read: read,
-		}
-		blog = append(blog,tmp)
+
+//设置用户页数
+func SetUserRowsNum(){
+	usercileRowsNum = QueryUserRowNum()
+}
+
+//查询用户的条数
+func QueryUserRowNum() int {
+	row := utils.QueryRowDB("select count(id) from users")
+	num := 0
+	row.Scan(&num)
+	return num
+}
+
+//根据页码查询用户并返回数据以便展示
+func FindUserWithPage(page,limit int) []orm.Params {
+	orm.Debug = true
+
+	page--
+	sql := fmt.Sprintf("limit %d,%d", page*limit,limit)
+	//fmt.Println("sql:::::::::::",sql)
+	sql = "select id,username,genre from users " + sql
+	//fmt.Println("sql:::::::::::",sql)
+
+	var Users []orm.Params
+	fmt.Println("var是正常的")
+	i, e := db.Raw(sql).Values(&Users)
+	fmt.Println("输出是:",i)
+	if e != nil {
+		fmt.Println("Raw出错")
 	}
-	return blog
+
+	return Users
 }
-//查询热搜榜前五
-func QueryTop5Blog() []Blog{
-	var blog []Blog
-	sql := fmt.Sprintf("select * from blog_info order by blog_read desc limit 5")
-	fmt.Println(sql)
-	rows, _ := utils.QueryDB(sql)
-	for rows.Next() {
-		id := "0"
-		userId := ""
-		title := ""
-		short := ""
-		author := ""
-		tag := ""
-		content := ""
-		like := ""
-		read := 0
-		rows.Scan(&id,&userId,&title,&short,&author,&tag,&content,&like,&read)
-		tmp := Blog{
-			Id: id, UserId: userId, Title: title, Short: short, Author: author,
-			Tag: tag, Content: content, Like: like, Read: read,
-		}
-		blog = append(blog,tmp)
-	}
-	return blog
-}
+
 //修改密码
 func AlterPassword(username,password string) (int64, error){
 	orm.Debug = true
 	password = utils.MD5(password)
-	salt := utils.MD5(utils.Salt())
-	sql := "update blog_users SET password='" + password + salt + "', salt='" + salt + "' "
+	sql := "update users SET password='" + password + "' "
 	location := "where username='" + username + "'"
 	sql = sql + location
 	fmt.Println("sql::::",sql)
@@ -330,10 +117,10 @@ func AlterPassword(username,password string) (int64, error){
 }
 
 //验证旧密码是否输入一致
-func TestOldPassword(username string, oldPassword string) int {
+func TestOldPassword(oldPassword string) int {
 	orm.Debug = true
 	oldPassword = utils.MD5(oldPassword)
-	sql := fmt.Sprintf("select id from blog_users where password='%s'", oldPassword + QuerySaltWithUsername(username))
+	sql := fmt.Sprintf("select id from users where password='%s'", oldPassword)
 	fmt.Println(sql)
 	row := utils.QueryRowDB(sql)
 	id := 0

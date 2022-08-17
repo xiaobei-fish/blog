@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>书籍详细页</title>
+    <link rel="stylesheet" href="../static/css/f.css">
+    <link rel="stylesheet" href="../static/css/icon.css">
+    <link rel="stylesheet" href="../static/js/layui/css/layui.css">
+</head>
+
+<body>
+    <div id="tn-background">
+        <div id="pin-nav" class="">
+            <ul id="ulc">
+                {{if .IsLogin}}
+                <li class="top">
+                    <a href="/selfhome">我的主页</a>
+                </li>
+                <li id="line" class="top"></li>
+                <li class="top">
+                    <a title="点击退出登录" href='javascript:if (confirm("确定退出登录么？")){location="/exit"}'>{{.Username}}</a>
+                </li>
+
+                <li id="userId" style="display:none">{{.Userid}}</li>
+
+                {{else}}
+                <li class="top">
+                    <a class="sign" href="javascript:">注册</a>
+                </li>
+                <li id="line" class="top"></li>
+                <li class="top">
+                    <a class="login" href="javascript:">登录</a>
+                </li>
+                {{end}}
+                <li class="ms ms-s"><em class="iconfont ii" style="font-size: 40px;line-height: 40px;">&#xe61c;</em></li>
+                <li class="ms">
+                    <!--
+                    搜索功能实现，这里的属性我没有设置
+                -->
+                    <form id="for_search" class="if" action="" method="GET">
+                        <input id="searchPut" class="in" style="width: 250px;padding: 0 20px;" type="text" name="keyWords" placeholder="搜索书籍">
+                        <button id="in" type="submit" style="visibility: hidden;width: 0;">
+                </form>
+                </li>
+                <li>
+                    <div class="left button_search">玄幻</div>
+                </li>
+                <li>
+                    <div class="left button_search">奇幻</div>
+                </li>
+                <li>
+                    <div class="left button_search">武侠</div>
+                </li>
+                <li>
+                    <div class="left button_search">仙侠</div>
+                </li>
+                <li class="lc">
+                    <div>
+                        <div class="left"><em class=""></em> 全部分类</div>
+                        <div class="bc">
+                            <div class="right button_search">都市</div>
+                            <div class="right button_search">现实</div>
+                            <div class="right button_search">军事</div>
+                            <div class="right button_search">历史</div>
+                            <div class="right button_search">游戏</div>
+                            <div class="right button_search">体育</div>
+                            <div class="right button_search">科幻</div>
+                            <div class="right button_search">悬疑</div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="left home">首页</div>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+    <div id="work_area">
+        <div style="margin: 50px;">
+            <div style="width: 100%;height: 400px;">
+                <div id="img">
+                    <img id="pic" src="{{.picture}}" alt="">
+                </div>
+                <div id="books_information">
+                    <p id="name_b">{{.name}}</p>
+                    <p id="bookId" style="display: none;">{{.id}}</p>
+                    <p id="detail"><span>{{.writer}}&nbsp;&nbsp;&nbsp;著</span><span>&nbsp;&nbsp;&nbsp;{{.genre}}</span><span>&nbsp;{{.state}}</span></p>
+                    <div style="padding: 160px 0 0 0;">
+                        <div class="layui-btn layui-btn-lg layui-btn-warm">立刻阅读</div>
+                        <div id="c" class="layui-btn layui-btn-lg layui-btn-normal">加入收藏</div></div>
+                </div>
+            </div>
+            <div style="padding: 20px;width: 100%;border-top: 2px solid red;;">
+                <p>{{.introduction}}</p>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../static/js/jQuery.min.js"></script>
+<script>
+    $(".button_search").click(function(){
+        $("#searchPut")[0].value = $(this).html();
+        $("#in").trigger('click');
+    })
+    $(".home").click(function(){
+        window.location.href = '/home';
+    })
+</script>
+<script>
+    $("#for_search").submit(function(e) {
+        e.preventDefault();
+        var content = $("#searchPut")[0].value;
+        localStorage.setItem("searchWord", content);
+        console.log(localStorage.getItem("searchWord"));
+        window.location.href = '/result';
+    })
+</script>
+<script src="../static/js/layer-v3.1.1/layer/layer.js"></script>
+<script src="../static/js/jquery.form.js"></script>
+<script src="../static/js/layui/layui.js"></script>
+<script>
+    $("#c").click(function(){
+        if($("li").is("#userId")){
+            console.log($("#userId").html());
+            var userId = $("#userId").html();
+            var bookId = $("#bookId").html();
+            /*
+                添加收藏夹功能
+            */
+            $.ajax(
+                {
+                    url:"/collect",//操作地址
+                    type:"post",
+                    data:{
+                        userId:userId,
+                        bookId:bookId
+                    },
+                    dataType:"json",
+                    success:function(data){
+                        if(data.code == 1){
+                            alert("添加成功！");
+                        }
+                        else
+                        {
+                            alert("已在收藏夹中");
+                        }
+                    }
+                }
+            )
+        }
+        else{
+            alert("请先登录");
+        }
+    })
+</script>
+<script src="../static/js/f.js"></script>
+
+</html>

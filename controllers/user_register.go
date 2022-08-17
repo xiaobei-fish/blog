@@ -1,11 +1,11 @@
 package controllers
 
 import (
-	"blog/models"
-	"blog/utils"
 	"fmt"
 	"github.com/astaxie/beego"
 	"time"
+	"web/models"
+	"web/utils"
 )
 
 type RegisterController struct {
@@ -23,21 +23,13 @@ func (c *RegisterController) Post() {
 	username := c.GetString("username")
 	password := c.GetString("password")
 	repassword := c.GetString("repassword")
-	phone := c.GetString("phone")
-	fmt.Printf("username:%s,password:%s,repassword:%s,phone:%s\n",username,password,repassword,phone)
+	fmt.Println(username, password, repassword)
 
 	//注册之前先判断该用户名是否已经被注册，如果已经注册，返回错误
-	id0 := models.QueryUserWithUsername(username)
-	id1 := models.QueryUserWithPhone(phone)
-	fmt.Println("id0:", id0)
-	fmt.Println("id1:", id1)
-	if id0 > 0 {
-		c.Data["json"] = map[string]interface{}{"code": 0, "message": "该用户名已经存在"}
-
-		c.ServeJSON()
-		return
-	}else if id1 > 0 {
-		c.Data["json"] = map[string]interface{}{"code": 0, "message": "该手机号已经被注册过"}
+	id := models.QueryUserWithUsername(username)
+	fmt.Println("id:", id)
+	if id > 0 {
+		c.Data["json"] = map[string]interface{}{"code": 0, "message": "用户名已经存在"}
 
 		c.ServeJSON()
 		return
@@ -47,9 +39,8 @@ func (c *RegisterController) Post() {
 	//存储的密码是md5后的数据，那么在登录的验证的时候，也是需要将用户的密码md5之后和数据库里面的密码进行判断
 	password = utils.MD5(password)
 	fmt.Println("md5后：", password)
-	//储存的密码： MD5密码+MD5盐
-	user := models.User{Username: username, Password: password + utils.MD5(utils.Salt()), Salt: utils.MD5(utils.Salt()),
-		Createtime: time.Now().Unix(), Phone: phone , Img: "../static/img/default.jpg"}
+
+	user := models.User{Username: username, Password: password, Genre: "1", Status: 1, Createtime: time.Now().Unix()}
 
 	_, err := models.InsertUser(user)
 

@@ -202,26 +202,11 @@ a {
 }
 
 .ms {
-    position: absolute;
-    left: 50%;
-    top: 34%;
-    transform: translate(-50%,-50%);
+    float: right;
 }
 
 .ms-s {
     margin: 0 30px 0 0;
-    position: relative;
-    left: 76.5%;
-    top: 33.09%;
-    transform: translate(-50%,-50%);
-}
-
-.ms0 {
-    margin: 0 0 0 0;
-}
-
-.ms1 {
-    margin: 0 5px 0 200px;
 }
 
 #news {
@@ -253,10 +238,6 @@ a {
 #history {
     width: 1100px;
     height: 1000px;
-}
-#message {
-    width: 1100px;
-    height: 390px;
 }
 
 .books {

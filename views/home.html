@@ -11,19 +11,17 @@
     <link rel="stylesheet" href="../static/js/layui/css/layui.css">
 </head>
 
-<body style="background-color:rgb(68, 68, 68)">
+<body>
     <div id="tn-background">
         <div id="top-nav">
             <ul id="ulc">
                 {{if .IsLogin}}
                 <li class="top">
-                    <img src="{{.Img}}" data-position="center center"
-                         style="border-radius:50%;max-width:25px;max-height:25px;float: left" alt="">
-                    <a href="/selfhome" style="padding: 0 0 0 10px">{{.Username}}的主页</a>
+                    <a href="/selfhome">我的主页</a>
                 </li>
                 <li id="line" class="top"></li>
                 <li class="top">
-                    <a title="点击退出登录" href='javascript:if (confirm("确定退出登录么？")){location="/exit"}'>退出登录</a>
+                    <a title="点击退出登录" href='javascript:if (confirm("确定退出登录么？")){location="/exit"}'>{{.Username}}</a>
                 </li>
                 {{else}}
                 <li class="top">
@@ -34,53 +32,233 @@
                     <a class="login" href="javascript:">登录</a>
                 </li>
                 {{end}}
+                <li class="ms ms-s"><em class="iconfont ii" style="font-size: 40px;line-height: 40px;">&#xe61c;</em></li>
+                <li class="ms">
+                    <!--
+                    搜索功能实现，这里的属性我没有设置
+                -->
+                    <form id="for_search" action="/search" method="GET" target="_blank">
+                        <!--
+                            功能需求，提交后建立符合搜索内容的列表，提供书籍
+                            搜索结果。包括书籍所有数据，书籍数量。单独建立一
+                            个变量保存搜索字段内容，并且跳转到页面search.html
+                            上
+                        -->
+                        <input id="ne" class="in" style="width: 250px;padding: 0 20px;" type="text" name="keyWords" placeholder="请搜索书籍">
+                        <input style="visibility: hidden;width: 0;" id="in" type="submit">
+                    </form>
+                </li>
+
 
             </ul>
         </div>
     </div>
-    <iframe width="280" scrolling="no" height="300" frameborder="0" allowtransparency="true"
-            src="https://i.tianqi.com?c=code&id=55&color=%23FFFFFF&bgc=%23000000&icon=1&site=12" style="float: right"></iframe>
-    <div id="head" style="width: 1100px;height: 1040px;">
-            <img src="../static/img/0.jpg" alt="Go一下" data-position="center center"
-                 style="border-radius:50%;max-width:200px;max-height:200px;position: absolute;left: 42%;top: 10%">
-        <li class="ms ms-s"><em class="iconfont ii" style="font-size: 40px;line-height: 40px;color: #ffffff">&#xe61c;</em>
-                <li class="ms">
-                    <form id="for_search" action="/search" method="GET" target="_blank">
-                        <input id="ne" class="in" style="width: 500px;padding: 0 20px;" type="text" name="keyWords" placeholder="请输入搜索关键字">
-                        <input style="visibility: hidden;width: 0;" id="in" type="submit">
-                    </form>
-                </li></li>
-        <div class="content" style="text-align:center;border-width:1px;border-style:solid;border-color:rgb(2, 204, 245);
-            background-color:#79918e6b;border-radius:20px; position: absolute; top: 41%">
-            <div style="color:#fff; font-size: 15px;" >
-                <li style="font-size: 20px; color:#fff;">********************************************************************************************************************************************</li>
-                <br>
-                <li style="font-size: 20px; color:#fff;position: absolute; left: 45%">热搜Blog前五：</li>
-                <br><br>
-                {{.Content}}
-                <li style="font-size: 20px; color:#fff;">********************************************************************************************************************************************</li>
+    <div id="head">
+        <div id="class">
+            <dl>
+                <dd class="ic">
+                    <a href="javascript:;">
+                        <cite>
+                            <em class="iconfont">&#xe65f;</em>
+                            <span>玄幻</span>
+                        </cite>
+                    </a>
+                </dd>
+                <dd class="ic">
+                    <a href="javascript:;">
+                        <cite>
+                            <em class="iconfont">&#xe64c;</em>
+                            <span>奇幻</span>
+                        </cite>
+                    </a>
+                </dd>
+                <dd class="ic">
+                    <a href="javascript:;">
+                        <cite>
+                            <em class="iconfont">&#xe64f;</em>
+                            <span>武侠</span>
+                        </cite>
+                    </a>
+                </dd>
+                <dd class="ic">
+                    <a href="javascript:;">
+                        <cite>
+                            <em class="iconfont">&#xe61b;</em>
+                            <span>仙侠</span>
+                        </cite>
+                    </a>
+                </dd>
+                <dd class="ic">
+                    <a href="javascript:;">
+                        <cite>
+                            <em class="iconfont">&#xe649;</em>
+                            <span>都市</span>
+                        </cite>
+                    </a>
+                </dd>
+                <dd class="ic">
+                    <a href="javascript:;">
+                        <cite>
+                            <em class="iconfont">&#xe601;</em>
+                            <span>现实</span>
+                        </cite>
+                    </a>
+                </dd>
+                <dd class="ic">
+                    <a href="javascript:;">
+                        <cite>
+                            <em class="iconfont">&#xe603;</em>
+                            <span>军事</span>
+                        </cite>
+                    </a>
+                </dd>
+                <dd class="ic">
+                    <a href="javascript:;">
+                        <cite>
+                            <em class="iconfont">&#xe60e;</em>
+                            <span>历史</span>
+                        </cite>
+                    </a>
+                </dd>
+                <dd class="ic">
+                    <a href="javascript:;">
+                        <cite>
+                            <em class="iconfont">&#xe651;</em>
+                            <span>游戏</span>
+                        </cite>
+                    </a>
+                </dd>
+                <dd class="ic">
+                    <a href="javascript:;">
+                        <cite>
+                            <em class="iconfont">&#xe6d6;</em>
+                            <span>体育</span>
+                        </cite>
+                    </a>
+                </dd>
+                <dd class="ic">
+                    <a href="javascript:;">
+                        <cite>
+                            <em class="iconfont">&#xe60f;</em>
+                            <span>科幻</span>
+                        </cite>
+                    </a>
+                </dd>
+                <dd class="ic">
+                    <a href="javascript:;">
+                        <cite>
+                            <em class="iconfont">&#xe600;</em>
+                            <span>悬疑</span>
+                        </cite>
+                    </a>
+                </dd>
+            </dl>
+        </div>
+        <div class="layui-carousel" id="slideshow">
+            <div carousel-item>
+                <!--
+                    这里是轮播图，我现在只是测试用
+                -->
+                <div><img class="c_img" src="{{.P1}}" alt="">
+                    <span style="display: none;">{{.ID1}}</span>
+                </div>
+                <div><img class="c_img" src="{{.P2}}" alt="">
+                    <span style="display: none;">{{.ID2}}</span>
+                </div>
+                <div><img class="c_img" src="{{.P3}}" alt="">
+                    <span style="display: none;">{{.ID3}}</span>
+                </div>
+                <div><img class="c_img" src="{{.P4}}" alt="">
+                    <span style="display: none;">{{.ID4}}</span>
+                </div>
+                <div><img class="c_img" src="{{.P5}}" alt="">
+                    <span style="display: none;">{{.ID5}}</span>
+                </div>
+            </div>
+        </div>
+        <div id="news">
+            <p style="text-align: center;font-size: 35px;">公告</p>
+            <div style="background-color: white;">
+                {{.P6}}
+            </div>
+        </div>
+    </div>
+    <div id="ranking">
+        <div id="rank">
+            <p style="font-size: 30px;background-color: white;">收藏排行</p>
+            <!--排行第一的专门分栏-->
+            <div id="first">
+                <div style="float: left; width:50%;height: 530px;padding: 20px;background-color: white;">
+                    <div id="img">
+                        <img id="pic" src="{{.pic}}" alt="">
+                    </div>
+                    <div id="books_information_x">
+                        <p id="name_b">{{.name}}</p>
+                        <p id="bookId" style="display: none;">{{.id}}</p>
+                        <p id="detail"><span>{{.writer}}&nbsp;&nbsp;&nbsp;著</span><span>&nbsp;&nbsp;&nbsp;{{.genre}}</span></p>
+                        <p style="margin: 93px 0 0 0;"><em style="margin: 40px;" class="iconfont_b">&#xe632;</em><span class="layui-btn layui-btn-lg layui-btn-warm h1">点击查看</span></p>
+                    </div>
+                    <div style="float: left;width: 100%;padding: 30px 0 0 0;">{{.introduction}}</div>
+                </div>
+            </div>
+            <div id="d_line"></div>
+            <!--其他排行位-->
+            <!--样式设计不一样，慎用循环-->
+            <div id="others">
+                <!--第二第三名-->
+                <p class="others"><em class="font">&#xe6d9;</em><span style="display: none;">{{.id2}}</span><span style="color: teal;">{{.genre2}}</span>&nbsp;<strong>{{.name2}}</strong><span style="float: right;color: teal;margin: 15px 0 0 0;">{{.writer2}}</span></p>
+                <p class="others"><em class="font">&#xe6da;</em><span style="display: none;">{{.id3}}</span><span style="color: teal;">{{.genre3}}</span>&nbsp;<strong>{{.name3}}</strong><span style="float: right;color: teal;margin: 15px 0 0 0;">{{.writer3}}</span></p>
+                <!--第四至第十四名-->
+                <p class="others">
+                    <em class="font" style="margin: 0 15px;"></em><span style="display: none;">{{.id4}}</span><span style="color: teal;">{{.genre4}}</span>&nbsp;<strong>{{.name4}}</strong><span style="float: right;color: teal;margin: 15px 0 0 0;">{{.writer4}}</span>
+                </p>
+                <p class="others">
+                    <em class="font" style="margin: 0 15px;"></em><span style="display: none;">{{.id5}}</span><span style="color: teal;">{{.genre5}}</span>&nbsp;<strong>{{.name5}}</strong><span style="float: right;color: teal;margin: 15px 0 0 0;">{{.writer5}}</span>
+                </p>
+                <p class="others">
+                    <em class="font" style="margin: 0 15px;"></em><span style="display: none;">{{.id6}}</span><span style="color: teal;">{{.genre6}}</span>&nbsp;<strong>{{.name6}}</strong><span style="float: right;color: teal;margin: 15px 0 0 0;">{{.writer6}}</span>
+                </p>
+                <p class="others">
+                    <em class="font" style="margin: 0 15px;"></em><span style="display: none;">{{.id7}}</span><span style="color: teal;">{{.genre7}}</span>&nbsp;<strong>{{.name7}}</strong><span style="float: right;color: teal;margin: 15px 0 0 0;">{{.writer7}}</span>
+                </p>
+                <p class="others">
+                    <em class="font" style="margin: 0 15px;"></em><span style="display: none;">{{.id8}}</span><span style="color: teal;">{{.genre8}}</span>&nbsp;<strong>{{.name8}}</strong><span style="float: right;color: teal;margin: 15px 0 0 0;">{{.writer8}}</span>
+                </p>
+                <p class="others">
+                    <em class="font" style="margin: 0 15px;"></em><span style="display: none;">{{.id9}}</span><span style="color: teal;">{{.genre9}}</span>&nbsp;<strong>{{.name9}}</strong><span style="float: right;color: teal;margin: 15px 0 0 0;">{{.writer9}}</span>
+                </p>
+                <p class="others">
+                    <em class="font" style="margin: 0 15px;"></em><span style="display: none;">{{.id10}}</span><span style="color: teal;">{{.genre10}}</span>&nbsp;<strong>{{.name10}}</strong><span style="float: right;color: teal;margin: 15px 0 0 0;">{{.writer10}}</span>
+                </p>
+                <p class="others">
+                    <em class="font" style="margin: 0 15px;"></em><span style="display: none;">{{.id11}}</span><span style="color: teal;">{{.genre11}}</span>&nbsp;<strong>{{.name11}}</strong><span style="float: right;color: teal;margin: 15px 0 0 0;">{{.writer11}}</span>
+                </p>
+                <p class="others">
+                    <em class="font" style="margin: 0 15px;"></em><span style="display: none;">{{.id12}}</span><span style="color: teal;">{{.genre12}}</span>&nbsp;<strong>{{.name12}}</strong><span style="float: right;color: teal;margin: 15px 0 0 0;">{{.writer12}}</span>
+                </p>
+                <p class="others">
+                    <em class="font" style="margin: 0 15px;"></em><span style="display: none;">{{.id13}}</span><span style="color: teal;">{{.genre13}}</span>&nbsp;<strong>{{.name13}}</strong><span style="float: right;color: teal;margin: 15px 0 0 0;">{{.writer13}}</span>
+                </p>
+                <p class="others">
+                    <em class="font" style="margin: 0 15px;"></em><span style="display: none;">{{.id14}}</span><span style="color: teal;">{{.genre14}}</span>&nbsp;<strong>{{.name14}}</strong><span style="float: right;color: teal;margin: 15px 0 0 0;">{{.writer14}}</span>
+                </p>
             </div>
         </div>
     </div>
     <div id="footer">
         <div style="width: 1100px;background-color: rgb(68, 68, 68);float: left;padding: 0 50px 0 50px;">
-            <li class=" top "><p class="copyright" style="font-size:3vh;color:#fff;float: right">© 2021 — 2022</p></li>
+            <li class=" top "><a class="admin" href="javascript:; ">admin</a></li>
         </div>
     </div>
 </body>
 <script src="../static/js/jQuery.min.js "></script>
-<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="200" src="../static/selfhome/files/back.js"></script>
 <script>
     $(".ic").click(function() {
         var content = $(this).children().children().children().last().html();
         console.log(content);
         localStorage.setItem("searchWord", content);
         console.log(localStorage.getItem("searchWord"));
-        if (content !== "") {
-            window.location.href = '/search?key=' + content + '&page=1';
-        }else {
-            window.location.href = '/all?&page=1';
-        }
+        window.location.href = '/result';
     })
 </script>
 <script>
@@ -89,11 +267,24 @@
         var content = $("#ne")[0].value;
         localStorage.setItem("searchWord", content);
         console.log(localStorage.getItem("searchWord"));
-        if (content !== "") {
-            window.location.href = '/search?key=' + content + '&page=1';
-        }else {
-            window.location.href = '/all?&page=1';
-        }
+        window.location.href = '/result';
+    })
+</script>
+<script>
+    //这里是跳转页面
+    $(".c_img").click(function() {
+        var x = $(this).siblings().first().html();
+        location.href = '/book/' + x;
+    })
+    $(".others").click(function() {
+        var id = $(this).find("span:eq(0)").html();
+        console.log(id);
+        location.href = '/book/' + id;
+    })
+    $(".h1").click(function() {
+        var Id = $("#bookId").html();
+        console.log(Id);
+        location.href = '/book/' + Id;
     })
 </script>
 <script src="../static/js/layer-v3.1.1/layer/layer.js "></script>

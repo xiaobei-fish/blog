@@ -13,15 +13,15 @@
 #### app.conf配置
 
 ```shell
-appname = web_collect
-httpport = 端口
+appname = web
+httpport = 8080
 runmode = dev
 
 #mysql配置
 driverName = mysql
-mysqluser = 用户名
+mysqluser = 账号
 mysqlpwd = 密码
-host = 127.0.0.1
+host = localhost
 port = 3306
 dbname = 数据库
 
@@ -33,8 +33,11 @@ sessiongcmaxlifetime = 5400
 sessionproviderconfig = "./tmp"
 sessioncookielifetime = 5400
 
-#翻页配置,一页5个数据
-blogListPageNum = 5
+#页码展示小说配置
+novelListPageNum = 8
+
+#页码展示用户配置
+userListPageNum = 8
 
 ```
 

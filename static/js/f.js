@@ -13,10 +13,9 @@ $(".login").click(
                 content: '\<\div class="layui-form" style="padding:40px;">' +
                     '<form id="l" class="form_1 layui-form" action="http://127.0.0.1:8080/login" method="post">' +
                     '<div class="layui-form-item">' +
-                    '<div class=""><input class="log_input" type="text" required name="username" placeholder="请输入用户昵称或电话号码"/>\<\/div>' +
+                    '<div class=""><input class="log_input" type="text" required name="username" placeholder="请输入用户昵称或ID"/>\<\/div>' +
                     '<div class=""><input class="log_input" type="password" required name="password" placeholder="请输入密码"/>\<\/div>' +
                     '<div class=""><input class="log_submit" type="submit" value="登录"/>\<\/div>' +
-                    '<div class=""><a href="/forget" style="float: right;font-size:20px;">忘记密码?</a>\<\/div>' +
                     '</form>\<\/div>\<\/div>' //这里是登录表单
             })
             //转json
@@ -28,7 +27,7 @@ $(".login").click(
                 alert("登录状态:" + data.message)
                 if (data.code == 1) {
                     setTimeout(function() {
-                        window.location.href = "/"
+                        window.location.href = "/home"
                     }, 1000)
                 }
             },
@@ -42,6 +41,46 @@ $(".login").click(
         })
     }
 )
+
+$(".admin").click(
+        function() {
+            layer.open({
+                    type: 1,
+                    skin: 'login-w',
+                    title: ['管理员登录入口', 'font-size:25px'],
+                    area: ['500px', '480px'],
+                    shadeClose: true,
+                    content: '\<\div class="layui-form" style="padding:40px;">' +
+                        '<form id="admin" class="form_1 layui-form" action="http://127.0.0.1:8080/admin" method="post">' +
+                        '<div class="layui-form-item">' +
+                        '<div class=""><input class="log_input" type="text" required name="username" placeholder="请输入管理员ID"/>\<\/div>' +
+                        '<div class=""><input class="log_input" type="password" required name="password" placeholder="请输入密码"/>\<\/div>' +
+                        '<div class=""><input class="log_submit" type="submit" value="登录"/>\<\/div>' +
+                        '</form>\<\/div>\<\/div>' //这里是登录表单
+                })
+                //转json
+            var o1 = {
+                url: '/admin', //数据发送地址，就是action
+                type: 'post',
+                dataType: 'json',
+                success: function(data, status) {
+                    alert("登录状态:" + data.message)
+                    if (data.code == 1) {
+                        setTimeout(function() {
+                            window.location.href = "/admin/home"
+                        }, 1000)
+                    }
+                },
+                error: function(data, status) {
+                    alert("登录状态:" + data.message)
+                }
+            }
+            $("#admin").submit(function() {
+                $(this).ajaxSubmit(o1);
+                return false
+            })
+        }
+    )
     //注册弹窗
 $(".sign").click(
     function() {
@@ -55,7 +94,6 @@ $(".sign").click(
                     '<form id="s" class="form_1 layui-form" action="http://127.0.0.1:8080/register" method="post">' +
                     '<div class="layui-form-item">' +
                     '<div class=""><input class="log_input" type="text" required name="username" placeholder="请输入用户昵称"/>\<\/div>' +
-                    '<div class=""><input class="log_input" type="phone" lay-verify="phone" required name="phone" placeholder="请输入电话号码"/>\<\/div>' +
                     '<div class=""><input id="p1" class="log_input" type="password" lay-verify="pass" required name="password" placeholder="请设置密码"/>\<\/div>' +
                     '<div class=""><input id="p2" class="log_input" type="password" lay-verify="re_pass" required name="repassword" placeholder="请再次输入密码"/>\<\/div>' +
                     '<div class=""><input lay-submit lay-filter="aaa" class="log_submit" type="submit" value="注册"/>\<\/div>' +
@@ -70,7 +108,7 @@ $(".sign").click(
                 alert("注册状态:" + data.message)
                 if (data.code == 1) {
                     setTimeout(function() {
-                        window.location.href = "/"
+                        window.location.href = "/home"
                     }, 1000)
                 }
             },

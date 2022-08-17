@@ -1,49 +1,42 @@
 package controllers
 
 import (
-	"blog/models"
 	"fmt"
 	"strconv"
+	"web/models"
 )
 
-type SelfHomeController struct {
+type SelfhomeController struct {
 	JudgeController
 }
 
-func (c *SelfHomeController) Get(){
-	if c.Loginuser != nil {
-		c.Data["Username"] = c.Loginuser.(string)
-	}
-	//导入收藏信息
-	username := c.Loginuser.(string)
-	info := models.QueryUserInfoWithUsername(username)
-	fmt.Println(info)
+func (c *SelfhomeController) Get() {
+	userId := models.QueryUserWithUsername(c.Loginuser.(string))
+	num := models.GetCollectedNumByUserId(strconv.Itoa(userId))
+	number := models.GetCreatedNovelNumByWriterName(c.Loginuser.(string))
 
-	for _, i := range info{
-		c.Data["userId"] = i.Id
-		c.Data["Username"] = i.Username
-		c.Data["Phone"] = i.Phone
-	}
-
-	c.Data["Img"] = models.QueryUserHeadImgWithUsername(username)
-
+	c.Data["Username"] = c.Loginuser
+	c.Data["CollectNum"] = num
+	c.Data["CreateNum"] = number
 	c.TplName = "selfhome.html"
 }
 
-func (c *SelfHomeController) Post() {
-	c.EnableRender = false
-	username := c.GetString("username")
+func (c *SelfhomeController) Post() {
+	username := c.Loginuser.(string)
+	oldPassword := c.GetString("oldPassword")
+	newPassword := c.GetString("newPassword")
+	fmt.Println("old:",oldPassword)
+	fmt.Println("new:",newPassword)
 
-	fmt.Println("new username:",username)
-	_, err := models.UpdateInfo(strconv.Itoa(models.QueryUserWithUsername(c.Loginuser.(string))),username)
+	flag := models.TestOldPassword(oldPassword)
+	if flag == 0 {
+		c.Data["json"] =  map[string]interface{}{"code": 0, "message": "输入旧密码错误,请重新输入"}
+		c.ServeJSON()
 
-	if err != nil {
-		c.Data["json"] = map[string]interface{}{"code": 0, "message": "修改失败"}
-	}else{
-		c.Data["json"] = map[string]interface{}{"code": 1, "message": "修改成功"}
-		c.JudgeController.DelSession("loginuser")
-		c.SetSession("loginuser", username)
-		c.JudgeController.Loginuser = c.GetSession("loginuser")
+		return
+	}else {
+		models.AlterPassword(username,newPassword)
+		c.Data["json"] = map[string]interface{}{"code": 1, "message": "修改密码成功"}
+		c.ServeJSON()
 	}
-	c.ServeJSON()
 }

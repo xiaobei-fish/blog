@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/icon.css">
+    <link rel="stylesheet" href="../static/css/f.css">
+    <link rel="stylesheet" href="../static/js/layui/css/layui.css">
+    <title>作家页面</title>
+</head>
+
+<body>
+    <ul class="layui-nav aaa">
+
+        <li class="layui-nav-item">
+            <a href="javascript:;">{{.Username}}</a>
+            <dl class="layui-nav-child">
+                <dd><a id="alter" href="javascript:;">修改密码</a></dd>
+                <dd><a href='javascript:if (confirm("确定退出登录么？")){location="/exit"}'>退出登录</a></dd>
+            </dl>
+        </li>
+        <li class="layui-nav-item">
+            <a href="/home">首页</a>
+            <!--首页跳转-->
+        </li>
+        <li class="layui-nav-item">
+            <a href="/selfhome">个人主页</a>
+        </li>
+
+        <li class="layui-nav-item">
+            <a href="/page">我的收藏</a>
+        </li>
+        <li class="layui-nav-item">
+            <a href="/writer">作家专区</a>
+        </li>
+    </ul>
+    <div id="work_area_w">
+        <div class="layui-tab layui-tab-card" style="height: 100%;">
+            <ul class="layui-tab-title">
+                <li class="layui-this">我的作品</li>
+                <li>上传新作</li>
+            </ul>
+            <div class="layui-tab-content" style="height:100%;background-color: white;">
+                <div class="layui-tab-item layui-show">
+                    <div id="works" style="float: left; height: 620px;margin: 0 0 50px 0;width: 100%;">
+                        <div class="books w_">
+                            <img class="b_img" src="" alt="">
+
+                            <div class="b_p">
+                                <p class="b_name">' + n.Name + <em style="display: none;">shoe</em><em title="点击移除" class="iconfont_a" style="float: right;">&#xe61a;</em></p>
+                                <p class="b_s"><span class="writer">
+                            n.Writer + '&nbsp;著</span>
+                                    <span class="point">&nbsp;&nbsp;' + n.Genre + '</span></p>
+                                <p class="b_t">' + n.Introduction + '</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="w_h"></div>
+                </div>
+                <div class="layui-tab-item">
+                    <div style="margin: 100px;">
+                        <form id="newBook" class="layui-form" action="">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">小说名</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="novelName" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">小说类型</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="novelGenre" required lay-verify="required" placeholder="请输入小说类型" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">状态</label>
+                                <div class="layui-input-block">
+                                    <input type="radio" name="novelState" value="完结" title="完结">
+                                    <input type="radio" name="novelState" value="连载" title="连载" checked>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="layui-form-item layui-form-text">
+                                <label class="layui-form-label">文本域</label>
+                                <div class="layui-input-block">
+                                    <textarea name="novelIntroduction" placeholder="请输入内容" required class="layui-textarea"></textarea>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">上传封面</label>
+                                <div class="layui-input-block">
+                                    <input id="file_a" type="file" required name="picture">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+<script src="../static/js/jQuery.min.js "></script>
+<script src="../static/js/layer-v3.1.1/layer/layer.js "></script>
+<script src="../static/js/jquery.form.js "></script>
+<script src="../static/js/layui/layui.js "></script>
+<script src="../static/js/f.js "></script>
+<script>
+    layui.use('form', function() {
+        var form = layui.form;
+        form.on('submit(formDemo)', function(data) {
+            var ps = new FormData();
+            ps.append('picture', $("#file_a")[0].files[0]);
+            ps.append('novelName', data.field.novelName);
+            ps.append('novelState', data.field.novelState);
+            ps.append('novelGenre', data.field.novelGenre);
+            ps.append('novelIntroduction', data.field.novelIntroduction);
+
+            $.ajax({
+                url: "/writer", //提交新书的地址
+                type: "POST",
+                dataType: "JSON",
+                data: ps,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    if (data.code == 1) {
+                        alert("新建成功");
+                        setTimeout(function() {
+                            window.location.href = "/writer"
+                        }, 1000)
+                    }
+                }
+            })
+            return false;
+        });
+    });
+    $("#newBook").submit(function(e) {
+        e.preventDefault();
+    })
+</script>
+<script src="../static/js/page_writer.js "></script>
+<script src="../static/js/alter.js"></script>
+
+</html>
