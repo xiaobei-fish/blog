@@ -20,6 +20,6 @@ COPY --from=builder /app/publish .
 
 # 指定运行时环境变量
 ENV GIN_MODE=release
-EXPOSE 8099
+EXPOSE 8080
 
 ENTRYPOINT ["./main"]
